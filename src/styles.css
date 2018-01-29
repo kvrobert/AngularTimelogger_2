@@ -1,0 +1,14 @@
+@font-face
+{
+  font-family: "realway_light";
+  src: url(../node_modules/fonts-raleway/fonts/fonts-raleway/Raleway-Light.ttf); /* csshez képest relatív út... a ".." a kilépéshez kell*/
+}
+html, body
+{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "realway_light";
+  background: #ebebeb;
+}

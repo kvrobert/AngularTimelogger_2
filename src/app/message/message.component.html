@@ -1,0 +1,4 @@
+<div *ngIf="messageService.message.length" class="popUpWindow">
+  <h2>Message</h2>
+  <div *ngFor="let message of messageService.message" >{{message}}</div>
+</div>

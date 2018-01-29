@@ -1,0 +1,13 @@
+.popUpWindow
+{
+  /*display: none;*/
+  background: rgba( 0, 0, 0, 0.8 );
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  height: 20%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+}

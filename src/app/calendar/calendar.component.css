@@ -1,0 +1,96 @@
+@font-face
+{
+  font-family: "realway_light";
+  src: url(../../../node_modules/fonts-raleway/fonts/fonts-raleway/Raleway-Light.ttf); /* csshez képest relatív út... a ".." a kilépéshez kell*/
+}
+
+/*.calendarComponent{
+
+  height: 100%;
+  float: left;
+  width: 70%;
+  position: relative;
+} */
+section#calendar >  table
+{
+  margin: 0;
+  border: 1px solid rgba( 0, 0, 0, 0.1 );
+  border-collapse: collapse; /* így a celláknak nem is kell megadni szegélyt.... */
+  background: #ffffff;
+  width: 100%;
+  height: 95%;
+  float: left;
+}
+section#calendar >  table thead th
+      {
+        text-align: center;
+        background: #8baad9;
+
+
+      }
+section#calendar >  table tbody td
+      {
+        text-align: center;
+        height: 15%;
+        cursor: pointer;
+        position: relative;
+        border: 1px solid rgba( 0, 0, 0, 0.1 );
+        box-sizing: border-box;
+      }
+section#calendar >  table tbody td:hover
+      {
+        background: #ddd;
+      }
+
+section#calendar >  table tbody td div
+      {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-size: 16px;
+        background: #fff;
+                                          /*  position: absolute;   */
+        left: 0;
+        top: 0;
+        z-index: 100;
+        box-shadow: 3px 3px 0px rgba( 0, 0, 0, 0.25 );
+        transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s, font-size 0.5s, box-shadow 1s;
+      }
+
+section#calendar >  table tbody td:hover div
+      {
+        width: 120%;
+        height: 120%;
+        left: -10%;
+        top: -10%;
+        font-size: 20px;
+        box-shadow: 3px 3px 20px rgba( 0, 0, 0, 0.25 );
+        z-index: 101;
+        border-radius: 10px;
+
+      }
+
+
+section#calendar >  table th, #calendar >  table thead td
+      {
+        width: 14.28%;
+      }
+section#calendar > nav {
+
+  width: 100%;
+  height: 5%;
+  float: left;
+  text-align: center;
+  display: inline-block;
+  padding: 5px 5px;
+  box-sizing: border-box; /* ad dobozok mérete a bennelévő tartalomra
+                                    vonatkozik...egyéb szegély stn ehhez adodik még hozzá..ezzel a padding nem változtat az össz méreten */
+}
+
+/*#calendar table .nonEmpty div*/
+section#calendar table tbody tr td.nonEmpty div
+{
+  background: #c7cce9;;
+}
+
+

@@ -1,0 +1,27 @@
+<div id="displayMonths" class="popUpWindow">
+  <section>
+    <h2><a href="">Months</a></h2>
+    <div class="taskTable">
+      <table>
+        <thead>
+        <th *ngFor="let tableHead of tableHeader" >{{tableHead}}</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let workMonth of workMonthsAPI">
+        <!--  <td>{{workMonth.year}}</td> -->
+          <!--  <td>{{workMonth.month}}</td> -->
+            <td>{{workMonth.monthDate}}</td>
+           <td>{{workMonth.sumPerMonth}}</td>
+            <td><a href="">×</a></td>
+
+            <td><a href="">×</a></td>
+          </tr>
+
+          </tbody>
+        </table>
+        <button id="createMonth">New Month</button>
+        <button routerLink="" id="createMonth">Close</button>
+      </div>
+
+    </section>
+  </div>

@@ -1,0 +1,30 @@
+<div id="displayTasks" class="popUpWindow">
+
+  <section>
+    <h2><a href="">Tasks</a></h2>
+    <div class="taskTable">
+      <table>
+        <thead>
+        <th *ngFor="let taskTableHead of taskTableHeader" >{{taskTableHead}}</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let task of tasks" >
+          <td>{{task.taskId}}</td>
+          <td>{{task.year}}</td>
+          <td>{{task.month}}</td>
+          <td>{{task.day}}</td>
+          <td>{{task.comment}}</td>
+          <td>{{task.startTime}}</td>
+          <td>{{task.endTime}}</td>
+          <td><a href="">×</a></td>
+          <td><a href="">×</a></td>
+        </tr>
+        </tbody>
+      </table>
+      <button id="createTask">New Task</button>
+      <button routerLink="" id="createTask">Close</button>
+    </div>
+
+  </section>
+
+</div>

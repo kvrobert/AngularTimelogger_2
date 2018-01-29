@@ -1,0 +1,26 @@
+<div id="displayDays" class="popUpWindow">
+  <section>
+    <h2><a href="">Days</a></h2>
+    <div class="dayTable">
+      <table>
+        <thead>
+        <th *ngFor="let workDayHeader of workDayTableHeader" >{{workDayHeader}}</th>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let workDay of workDays" >
+          <td>{{workDay.year}}</td>
+          <td>{{workDay.month}}</td>
+          <td>{{workDay.day}}</td>
+          <td>{{workDay.requiredHour}}</td>
+          <td><a href="">×</a></td>
+          <td><a href="">×</a></td>
+        </tr>
+        </tbody>
+      </table>
+      <button id="createDay">New Day</button>
+      <button routerLink="" id="createDay">Close</button>
+    </div>
+
+  </section>
+</div>

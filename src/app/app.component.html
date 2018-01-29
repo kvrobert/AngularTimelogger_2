@@ -1,0 +1,19 @@
+      <div id="container">
+        <header>
+          <h1><a href="" >Time Logger</a></h1>
+          <nav>
+            <ul>
+              <li> <a routerLink="/workmonths" id="linkListMonths">Displays the Months</a></li>
+              <li> <a routerLink="/workdays" id="linkListDays">Displays the Days</a></li>
+            </ul>
+          </nav>
+        </header>
+        <div id="main">
+          <app-month-statistics class="left"></app-month-statistics>
+          <app-dinamic-calendar class="center"></app-dinamic-calendar>
+          <app-day-statistics class="right"></app-day-statistics>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+
+

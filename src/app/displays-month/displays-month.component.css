@@ -1,0 +1,63 @@
+.popUpWindow
+{
+  /*display: none;*/
+  background: rgba( 0, 0, 0, 0.8 );
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+}
+.popUpWindow > section
+{
+  background: white;
+  margin: 0 auto;
+  margin-top: 2%;
+  width: 95%;
+  max-width: 1000px;
+  height: 65%;
+  text-align: center;
+}
+.popUpWindow > section h2
+{
+  margin: 10px 5px;
+  text-align: center;
+  float: left;
+  width: 100%;
+  height: 5%;
+}
+.popUpWindow > section h2 a
+{
+  text-decoration: none;
+}
+.popUpWindow > section > div
+{
+  margin: 0;
+  width: 100%;
+  height: 95%;
+  float: left;
+}
+.popUpWindow > section table
+{
+  border-collapse: collapse; /* így a celláknak nem is kell megadni szegélyt.... */
+  margin: 2%;
+  float: left;
+  width: 96%;
+}
+.popUpWindow > section table td
+{
+  border-top: 1px solid #ddd;
+  text-align: center;
+  padding: 5px;
+}
+.popUpWindow > section table tbody tr:hover
+{
+  background: #ddd;
+}
+.popUpWindow > section table tbody td a
+{
+  text-decoration: none;
+}

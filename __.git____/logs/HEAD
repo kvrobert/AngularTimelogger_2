@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 c98c2caca9271b76d3edfd7968cc0a0db6ad9b1b Angular CLI <angular-cli@angular.io> 1516439636 +0100	commit (initial): chore: initial commit from @angular/cli
+c98c2caca9271b76d3edfd7968cc0a0db6ad9b1b f14474aa3e3a7325eca166d5b82ef093f55112d7 Robesz <kvrobert@gmail.com> 1516550722 +0100	commit: Calandar design ready and works
+f14474aa3e3a7325eca166d5b82ef093f55112d7 202e6ba0477d80a4e0c8ee15c9bb85ff377522a3 Robesz <kvrobert@gmail.com> 1516564426 +0100	commit: router installed, but dont works
+202e6ba0477d80a4e0c8ee15c9bb85ff377522a3 aee77a5694317c9ba0d3761eccde0acb000e344e Robesz <kvrobert@gmail.com> 1516640250 +0100	pull: Fast-forward
+aee77a5694317c9ba0d3761eccde0acb000e344e 35071303e4f66a522292246e899a7e93ba4e79da Robesz <kvrobert@gmail.com> 1516732547 +0100	commit: Added lot of things... :)
+35071303e4f66a522292246e899a7e93ba4e79da e8163780cf1a1f986ce8de9d8fd4c85a0e75e736 Robesz <kvrobert@gmail.com> 1516823446 +0100	commit: Display task fixed, added timelogger service, and observable to the displayMonths
+e8163780cf1a1f986ce8de9d8fd4c85a0e75e736 4e2265827f9e2def3f8322d0724334650d62fbb5 Robesz <kvrobert@gmail.com> 1516824102 +0100	commit: some changes

@@ -1,0 +1,57 @@
+@font-face
+{
+  font-family: "realway_light";
+  src: url(../../../node_modules/fonts-raleway/fonts/fonts-raleway/Raleway-Light.ttf); /* csshez képest relatív út... a ".." a kilépéshez kell*/
+}
+
+.sideBoxes
+{
+  margin-top: 9%;
+  background: bisque;
+  text-align: center;
+  background: #8baad9;
+  color: #fff;
+  border-radius: 10px;
+  overflow-x: hidden;
+
+}
+
+.sideBoxes h2
+{
+  background: #4766a7;
+  float: left;
+  width: 100%;
+  /*  margin: 0 !important; */
+  margin-top: 0;
+  padding: 10px;
+  font-size: 17px;
+}
+
+
+.statisticsInfo
+{
+  border: 1px solid #4766a7;
+  margin: 10%;
+  width: 80%;
+  float: left;
+  border-radius: 10px;
+}
+.statisticsInfo h4
+{
+  margin-bottom: 20px;
+  margin-top: -9px;
+  margin-left: 10px;
+  padding: 0 5px;
+  font-size: 12px;
+  background: #8baad9;
+  text-align: left;
+  float: left;
+}
+.statisticsInfo span
+{
+  display: inline-block;
+  width: 100%;
+  font-size: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
