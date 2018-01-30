@@ -28,14 +28,19 @@ export class DisplaysMonthComponent implements OnInit {
 
   getWMontApis(): void {
     this.timeloggerService.getWMontApis()
-      .subscribe(apis => {
-        this.workMonthsAPI = apis;
-        this.convertApiWorkMonthTOWorkMonth();
+      .subscribe((apis: WMontApis[]) => {
+        this.workMonths = apis.map( workmonth =>   // Mappelni kell....és azt kapja vissza
+          { 
+            var date = Date.parse( workmonth.monthDate );
+            var y = +moment( date).format('YYYY');
+            var m = +moment( workmonth.monthDate ).format('MM');
+            return new WorkMonth( y, m );
+           } );
       } );
     console.log('GetMonth method from displayMonth');
 
   };
-  convertApiWorkMonthTOWorkMonth(): void {
+ /* convertApiWorkMonthTOWorkMonth(): void {
     //this.workMonths = new WorkMonth()[];
     console.log( this.workMonthsAPI.length );
 
@@ -51,6 +56,6 @@ export class DisplaysMonthComponent implements OnInit {
       this.workMonths[i].setYear( y );
       this.workMonths[i].setMonth( m );
     };
-  };
+  };*/
 
 }

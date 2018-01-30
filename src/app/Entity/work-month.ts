@@ -1,23 +1,14 @@
-export class WorkMonth {
+export class WorkMonth{
 
    // id: number;
-   year?: number;
-   month?: number;
+   public year: number;
+   public month: number;
 
 
-   public getYear(): number {
-     return this.year;
+   constructor( year: number, month: number ){
+      this.year = year;
+      this.month = month;
+
    }
-
-   public getMonth(): number {
-     return this.month;
-   }
-
-   public setYear( year: number ): void {
-     this.year = year;
-   }
-
-  public setMonth( month: number ): void {
-    this.year = month;
-  }
+  
 }
