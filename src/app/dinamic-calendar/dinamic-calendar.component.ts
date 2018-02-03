@@ -129,5 +129,10 @@ export class DinamicCalendarComponent implements OnInit {
       });
   }
 
+  setCurrentCommonDate( date: Date ): void {
+    this.currentCommonDate = date
+    console.log( date);
+  }
+
 
 }

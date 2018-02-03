@@ -22,9 +22,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let week of weeks" class="week" >
-            <td *ngFor="let day of week" >
+            <td *ngFor="let day of week">
               <div class="weekDateDisabled" *ngIf="!isSelectedMonth(day.mDate)" ><span>{{day.mDate.date()}}</span></div>
-              <div id="enabledDay" class="weekDateEnabled" *ngIf="isSelectedMonth(day.mDate)" routerLink="/tasks"><span>{{day.mDate.date()}}</span></div>
+              <div [ngStyle]="{'background-color': isToday( day.mDate ) ? '#D8D8D8' : 'white' }"
+                   id="enabledDay" class="weekDateEnabled"
+                   *ngIf="isSelectedMonth(day.mDate)" routerLink="/tasks" (mouseenter)= " setCurrentCommonDate( day.mDate.toDate() )"><span>{{day.mDate.date()}}</span></div>
             </td>
         </tr>
       </tbody>

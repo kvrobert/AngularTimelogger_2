@@ -92,6 +92,11 @@ section#calendarSection table.calendarTable tbody tr.week td div{
   color: black;
   font-weight: bold;
 }
+.todayCalendar {
+  color: black;
+  font-weight: bold;
+  background: greenyellow;
+}
 section#calendarSection table.calendarTable tbody tr.week td:hover #enabledDay{
   width: 110%;
   height: 110%;
