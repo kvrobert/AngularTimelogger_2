@@ -3,15 +3,15 @@
     <h2>Month Statistics</h2>
     <div class="statisticsInfo">
       <h4>Required Minuten</h4>
-      <span>{{requiredMinPerMonth}}</span>
+      <span>{{ getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).requiredMinPerMonth }}</span>
     </div>
     <div class="statisticsInfo">
       <h4>Summary Minuten</h4>
-      <span>{{sumPerMonth}}</span>
+      <span>{{getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).sumPerMonth}}</span>
     </div>
     <div class="statisticsInfo">
       <h4>Extra Minuten</h4>
-      <span>{{extraMinPerMonth}}</span>
+      <span>{{ getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).extraMinPerMonth }}</span>
     </div>
   </section>
 </div>

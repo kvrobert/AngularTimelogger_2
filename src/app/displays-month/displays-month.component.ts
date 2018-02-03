@@ -17,8 +17,6 @@ export class DisplaysMonthComponent implements OnInit {
   workMonthsAPI: WMontApis[] = [];
   year: string;
   month: string;
-  foo = moment();
-
   currentCommonDate: Date;
 
   constructor(private timeloggerService: TimeloggerService) {
