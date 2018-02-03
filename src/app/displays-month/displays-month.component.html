@@ -7,11 +7,9 @@
         <th *ngFor="let tableHead of tableHeader" >{{tableHead}}</th>
         </thead>
         <tbody>
-        <tr *ngFor="let workMonth of workMonthsAPI">
-        <!--  <td>{{workMonth.year}}</td> -->
-          <!--  <td>{{workMonth.month}}</td> -->
-            <td>{{workMonth.monthDate}}</td>
-           <td>{{workMonth.sumPerMonth}}</td>
+        <tr *ngFor="let wm of workMonths">
+           <td>{{wm.year}}</td>
+           <td>{{wm.month}}</td>
             <td><a href="">×</a></td>
 
             <td><a href="">×</a></td>

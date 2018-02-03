@@ -12,11 +12,13 @@ export class DisplaysTasksComponent implements OnInit {
   private taskTableHeader: string[] = ['Task id', 'Year', 'Month', 'Comment', 'Sart Time', 'End Time', 'Edit', 'Delete'];
 
   tasks: Task[];
+  currentCommonDate: Date;
 
   constructor( private  timeloggerService: TimeloggerService) { }
 
   ngOnInit() {
-    this.getTasks();
+    this.getTasks()
+    this.timeloggerService.currentCommonDateObs.subscribe( curCommDate => this.currentCommonDate = curCommDate );
   }
 
   getTasks(): void {

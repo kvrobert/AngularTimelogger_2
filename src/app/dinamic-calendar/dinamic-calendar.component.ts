@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import {TimeloggerService} from "../timelogger.service";
 
 export interface CalendarDate {
   mDate: moment.Moment;
@@ -14,7 +15,7 @@ export interface CalendarDate {
   styleUrls: ['./dinamic-calendar.component.css']
 })
 export class DinamicCalendarComponent implements OnInit {
-
+  // Ha nem megy így létrehozk egy currentDatet---és a ngOnChangeban változtatom....
   currentDate = moment();
   dayNames = ['So', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   weeks: CalendarDate[][] = [];
@@ -23,10 +24,15 @@ export class DinamicCalendarComponent implements OnInit {
   @Input() selectedDates: CalendarDate[] = [];
   @Output() onSelectDate = new EventEmitter<CalendarDate>();
 
-  constructor() {}
+  currentCommonDate: Date;
+
+
+
+  constructor( private timeloggerService: TimeloggerService ) {}
 
   ngOnInit(): void {
     this.generateCalendar();
+    this.timeloggerService.currentCommonDateObs.subscribe( curCommDate => this.currentCommonDate = curCommDate );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -97,6 +103,15 @@ export class DinamicCalendarComponent implements OnInit {
       weeks.push(dates.splice(0, 7));
     }
     this.weeks = weeks;
+
+/** Change the current Date to use it in other components**/
+    this.timeloggerService.changeCurrentCommonDate( this.currentDate.toDate() );
+    console.log( "Date change.....to..." + this.currentDate.toDate() );
+
+  }
+
+  public getCurrentMonth(): number {
+    return this.currentDate.month();
   }
 
   fillDates(currentMoment: moment.Moment): CalendarDate[] {
