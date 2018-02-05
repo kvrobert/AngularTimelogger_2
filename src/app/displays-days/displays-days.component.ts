@@ -32,7 +32,7 @@ export class DisplaysDaysComponent implements OnInit {
     const month = +this.currentCommonDateDay.getMonth()+1;
     this.timeloggerService.getWorkDaysApis( year, month ).subscribe(
       ( apisWD: WDayApis[] ) => {
-        this.workDays = apisWD.map( workday => { // itt a workday Az APIS Workday
+          this.workDays = apisWD.map( workday => { // itt a workday Az APIS Workday
           console.log("The dates: " + workday.WorkDay[0] + workday.WorkDay[1] + workday.WorkDay[2]);
           let year = workday.WorkDay[0];
           let month = workday.WorkDay[1];

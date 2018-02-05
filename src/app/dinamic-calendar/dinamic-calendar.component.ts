@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {TimeloggerService} from "../timelogger.service";
+import {WDayApis} from "../Interfaces/w-day-apis";
+import {WMontApis} from "../Interfaces/w-mont-apis";
+import {WorkDay} from "../Entity/work-day";
 
 export interface CalendarDate {
   mDate: moment.Moment;
@@ -26,6 +29,9 @@ export class DinamicCalendarComponent implements OnInit {
 
   currentCommonDate: Date;
 
+  private WDApi: WDayApis[];
+  private WMApi: WMontApis[];
+  private WDs: WorkDay[];
 
 
   constructor( private timeloggerService: TimeloggerService ) {}
@@ -33,6 +39,8 @@ export class DinamicCalendarComponent implements OnInit {
   ngOnInit(): void {
     this.generateCalendar();
     this.timeloggerService.currentCommonDateObs.subscribe( curCommDate => this.currentCommonDate = curCommDate );
+    this.timeloggerService.workDayApiCommonOBS.subscribe( wdApiOBS => this.WDApi = wdApiOBS );
+    this.timeloggerService.workMonthCommonOBS.subscribe( wmApiOBS => this.WMApi = wmApiOBS );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -68,11 +76,14 @@ export class DinamicCalendarComponent implements OnInit {
   prevMonth(): void {
     this.currentDate = moment(this.currentDate).subtract(1, 'months');
     this.generateCalendar();
+    this.changedWDate();
   }
 
   nextMonth(): void {
     this.currentDate = moment(this.currentDate).add(1, 'months');
     this.generateCalendar();
+    this.changedWDate();
+
   }
 
   firstMonth(): void {
@@ -88,11 +99,13 @@ export class DinamicCalendarComponent implements OnInit {
   prevYear(): void {
     this.currentDate = moment(this.currentDate).subtract(1, 'year');
     this.generateCalendar();
+    this.changedWDate();
   }
 
   nextYear(): void {
     this.currentDate = moment(this.currentDate).add(1, 'year');
     this.generateCalendar();
+    this.changedWDate();
   }
 
   // generate the calendar grid
@@ -106,7 +119,7 @@ export class DinamicCalendarComponent implements OnInit {
 
 /** Change the current Date to use it in other components**/
     this.timeloggerService.changeCurrentCommonDate( this.currentDate.toDate() );
-    console.log( "Date change.....to..." + this.currentDate.toDate() );
+   // console.log( "Date change.....to..." + this.currentDate.toDate() );
 
   }
 
@@ -131,8 +144,35 @@ export class DinamicCalendarComponent implements OnInit {
 
   setCurrentCommonDate( date: Date ): void {
     this.currentCommonDate = date
-    console.log( date);
+    // console.log( date);
+    this.timeloggerService.changeCurrentCommonDate( this.currentCommonDate );
+   // console.log( "Date change.....to..." + this.currentCommonDate );
   }
 
+  getWorkDays(): void {
+    console.log("currentCommonDate from DynamicCALENDAR is " + this.currentCommonDate);
+    const year = +this.currentCommonDate.getFullYear();
+    const month = +this.currentCommonDate.getMonth() + 1;
+    this.timeloggerService.getWorkDaysApis(year, month).subscribe(
+      (apisWD: WDayApis[]) => {
+        console.log("APISCUCCCCC from DynamicCALENDAR" + apisWD);
+        this.WDApi = apisWD;
+        this.WDs = apisWD.map(workday => { // itt a workday Az APIS Workday
+          console.log("The dates: " + workday.WorkDay[0] + workday.WorkDay[1] + workday.WorkDay[2]);
+          let year = workday.WorkDay[0];
+          let month = workday.WorkDay[1];
+          let day = workday.WorkDay[2];
+          let reqMin = workday.requiredMinPerDay;
+          return new WorkDay(year, month, day, reqMin);
+        });
+        this.timeloggerService.changedworkDayApiCommon( this.WDApi );
+      }
+    );
+  }
+
+  changedWDate(): void {
+    this.getWorkDays();
+
+  }
 
 }

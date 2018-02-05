@@ -4,15 +4,21 @@
     <h2>Day Statistics</h2>
     <div class="statisticsInfo">
       <h4>Required Minuten</h4>
-      <span>{{requiredMinPerDay}}</span>
+      <span>{{  getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
+                                        currentCommonDateDay.getMonth() + 1,
+                                        currentCommonDateDay.getDate() ).requiredMinPerDay  }}</span>
     </div>
     <div class="statisticsInfo">
       <h4>Summary Minuten</h4>
-      <span>{{sumPerDay}}</span>
+      <span>{{  getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
+                                        currentCommonDateDay.getMonth() + 1,
+                                        currentCommonDateDay.getDate() ).sumPerDay  }}</span>
     </div>
     <div class="statisticsInfo">
       <h4>Extra Minuten</h4>
-      <span>{{extraMinPerDay}}</span>
+      <span>{{  getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
+                                        currentCommonDateDay.getMonth() + 1,
+                                        currentCommonDateDay.getDate() ).extraMinPerDay }}</span>
     </div>
   </section>
 

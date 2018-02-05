@@ -12,6 +12,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import * as moment from "moment";
 import _date = moment.unitOfTime._date;
 import {stringDistance} from "codelyzer/util/utils";
+import {TaskApis} from "./Interfaces/task-apis";
 
 
 @Injectable()
@@ -34,7 +35,7 @@ export class TimeloggerService {
     {year: 2017, month: 10, day: 17, requiredHour: 450},
     {year: 2017, month: 10, day: 18, requiredHour: 450},
   ]; */
-
+/*
   tasks: Task[] = [
     { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
     { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
@@ -48,13 +49,22 @@ export class TimeloggerService {
     { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
     { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'}
 
-  ];
+  ];*/
 
-   urlGETWokmonths = 'http://localhost:8080/timelogger/workmonths';
-   urlGETWokDays = 'http://localhost:8080/timelogger/workmonths/';
+   urlGETWokmonths = 'http://localhost:8080/timelogger/workmonths/';
+   urlGETWokDays = this.urlGETWokmonths;
+   urlGetTasks = this.urlGETWokmonths;
+
+   private WDApi: WDayApis[];
+   private WMApi: WMontApis[];
 
    private currentCommonDateSource = new BehaviorSubject< Date >( moment().toDate() );
    currentCommonDateObs = this.currentCommonDateSource.asObservable();
+
+   private worDayApiCommonSurce = new BehaviorSubject< WDayApis[] >( this.WDApi );
+   workDayApiCommonOBS = this.worDayApiCommonSurce.asObservable();
+   private workMonthCommonSource = new BehaviorSubject< WMontApis[] >( this.WMApi );
+   workMonthCommonOBS = this.workMonthCommonSource.asObservable();
 
 
   constructor( private messageService: MessageService,
@@ -62,6 +72,13 @@ export class TimeloggerService {
 
   changeCurrentCommonDate( chanchedDate: Date ){
     this.currentCommonDateSource.next( chanchedDate );
+  }
+
+  changedworkDayApiCommon( chanchedWDayApi: WDayApis[] ){
+    this.worDayApiCommonSurce.next( chanchedWDayApi );
+  }
+  changedworkMonthCommon( changedWMApi: WMontApis[] ){
+    this.workMonthCommonSource.next( changedWMApi );
   }
 
 
@@ -84,8 +101,11 @@ export class TimeloggerService {
     return this.http.get<WDayApis[]>( URL );
   }
 
-  getTasks(): Task[] {
-    return this.tasks;
+  getTasksAPIs( year: number, month: number, day: number ): Observable< TaskApis[] > {
+    console.log("Task from ServiceAPI");
+    const URL = `${this.urlGetTasks}${year}/${month}/${day}`;
+    console.log("Task request form "+ URL);
+    return this.http.get< TaskApis[] >( URL );
   }
 
   log(message: string):void {
