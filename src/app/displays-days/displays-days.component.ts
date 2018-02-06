@@ -12,7 +12,7 @@ import {WDayApis} from "../Interfaces/w-day-apis";
 })
 export class DisplaysDaysComponent implements OnInit {
 
-  private workDayTableHeader: string[] = ['Year', 'Month', 'Day', 'Edit', 'Delete'];
+  private workDayTableHeader: string[] = ['Year', 'Month', 'Day', 'Required work minutes', 'Edit', 'Delete'];
   workDays: WorkDay[];
   WDayApis: WDayApis[];
 
