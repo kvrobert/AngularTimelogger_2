@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../Entity/task';
 import {TimeloggerService} from "../timelogger.service";
 import {TaskApis} from "../Interfaces/task-apis";
+import moment = require("moment");
 
 @Component({
   selector: 'app-displays-tasks',
@@ -15,6 +16,15 @@ export class DisplaysTasksComponent implements OnInit {
   tasks: Task[];
   tasksAPI: TaskApis[];
   currentCommonDate: Date;
+
+  newRow: Task;
+
+
+  /** to the editable table  */
+  private editableTaskId: string;
+  private editableTaskStartTime: string;
+  private isNewRowAddingVisible: boolean = false;
+
 
   constructor( private  timeloggerService: TimeloggerService) { }
 
@@ -34,7 +44,7 @@ export class DisplaysTasksComponent implements OnInit {
      .subscribe(
        ( taskAPI: TaskApis[] ) => {
          this.tasks = taskAPI.map( task => {
-             let id = task.id.toString();
+             let id = task.taskID.toString();
              let comment = task.comment.toString();
              let startTime = task.startTime.toString();
              let endTIme = task.endTime.toString();
@@ -46,5 +56,35 @@ export class DisplaysTasksComponent implements OnInit {
      );
   }
 
+  editRow(taskId: string, startTime: string): void {
+    console.log("EdiRow..." + taskId +";"+ startTime);
+    this.editableTaskId = taskId;
+    this.editableTaskStartTime = startTime;
+  }
+  editCancel(): void{
+    this.editableTaskId = "";
+    this.editableTaskStartTime = "";
+  }
+  // TODO
+  addNewTaskRow(): void{
+    this.newRow = new Task(moment().year(), moment().month() + 1, moment().date(), "", "", "", "");
+    this.isNewRowAddingVisible = !this.isNewRowAddingVisible;
+  }
+
+  deleteRow(taskId: string, startTime: string): void {
+    this.editableTaskId = taskId;
+    this.editableTaskStartTime = startTime;
+  }
+  // TODO
+  saveRowEdition(): void {
+
+    // TOD
+  }saveNewTask(): void {
+    this.isNewRowAddingVisible = false;
+  }
+
+  cancelNewTask(): void {
+    this.isNewRowAddingVisible = false;
+  }
 
 }

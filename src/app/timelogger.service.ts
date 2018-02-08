@@ -57,12 +57,13 @@ export class TimeloggerService {
 
    private WDApi: WDayApis[];
    private WMApi: WMontApis[];
-
+   /** Synchronisiert the date between the component */
    private currentCommonDateSource = new BehaviorSubject< Date >( moment().toDate() );
    currentCommonDateObs = this.currentCommonDateSource.asObservable();
-
+  /** Synchronisiert the WD APIS between the component */
    private worDayApiCommonSurce = new BehaviorSubject< WDayApis[] >( this.WDApi );
    workDayApiCommonOBS = this.worDayApiCommonSurce.asObservable();
+  /** Synchronisiert the WM APIS between the component */
    private workMonthCommonSource = new BehaviorSubject< WMontApis[] >( this.WMApi );
    workMonthCommonOBS = this.workMonthCommonSource.asObservable();
 

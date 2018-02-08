@@ -9,35 +9,57 @@
       </thead>
       <tbody>
       <tr *ngFor="let task of tasks" >
-        <td>{{task.taskId}}</td>
-        <td>{{task.year}}</td>
-        <td>{{task.month}}</td>
-        <td>{{task.day}}</td>
-        <td>{{task.comment}}</td>
-        <td>{{task.startTime}}</td>
-        <td>{{task.endTime}}</td>
-        <td><a href="">×</a></td>
-        <td><a href="">×</a></td>
+        <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime" >{{task.taskId}}</td>
+        <td *ngIf="task.taskId == this.editableTaskId && task.startTime == this.editableTaskStartTime" > <input type="text"  [(ngModel)]="task.taskId"  > </td>
+
+        <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime" >{{task.year}}</td>
+        <td *ngIf="task.taskId == editableTaskId && task.startTime == editableTaskStartTime" ><input type="text" [(ngModel)]="task.year" ></td>
+
+        <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime" >{{task.month}}</td>
+        <td *ngIf="task.taskId == editableTaskId && task.startTime == editableTaskStartTime" ><input type="text" [(ngModel)]="task.month" ></td>
+
+        <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime" >{{task.day}}</td>
+        <td *ngIf="task.taskId == editableTaskId && task.startTime == editableTaskStartTime" ><input type="text" [(ngModel)]="task.day" ></td>
+
+        <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime" >{{task.comment}}</td>
+        <td *ngIf="task.taskId == editableTaskId && task.startTime == editableTaskStartTime" ><input type="text" [(ngModel)]="task.comment" ></td>
+
+        <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime" >{{task.startTime}}</td>
+        <td *ngIf="task.taskId == editableTaskId && task.startTime == editableTaskStartTime" ><input type="text" [(ngModel)]="task.startTime"  ></td>
+
+        <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime" >{{task.endTime}}</td>
+        <td *ngIf="task.taskId == editableTaskId && task.startTime == editableTaskStartTime" ><input type="text" [(ngModel)]="task.endTime"  ></td>
+
+        <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime"
+            class="editTask" (click)="this.editRow( task.taskId, task.startTime )">X</td>
+        <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime"
+            class="editTask" (click)="this.deleteRow( task.taskId, task.startTime )">X</td>
+
+        <td *ngIf="task.taskId == this.editableTaskId && task.startTime != this.editableTaskStartTime"
+            class="editTask" (click)="this.editCancel( task.taskId, task.startTime )">CANCEL</td>
+        <td *ngIf="task.taskId == editableTaskId && task.startTime == editableTaskStartTime"
+            class="editTask" (click)="this.saveRowEdition()">SAVE</td>
+
+      </tr>
+      <tr *ngIf="this.isNewRowAddingVisible" >
+        <td> <input type="text" [(ngModel)]="this.newRow.taskId" > </td>
+        <td> <input type="text" [(ngModel)]="this.newRow.year" > </td>
+        <td> <input type="text" [(ngModel)]="this.newRow.month" > </td>
+        <td> <input type="text" [(ngModel)]="this.newRow.day" > </td>
+        <td> <input type="text" [(ngModel)]="this.newRow.comment" > </td>
+        <td> <input type="text" [(ngModel)]="this.newRow.startTime" > </td>
+        <td> <input type="text" [(ngModel)]="this.newRow.endTime" > </td>
+
       </tr>
       </tbody>
     </table>
-      <button id="createTask">New Task</button>
-      <button routerLink="" id="createTask">Close</button>
+      <button *ngIf="!this.isNewRowAddingVisible" id="createTask" (click)="this.addNewTaskRow()" >Add new Task</button>
+      <button *ngIf="this.isNewRowAddingVisible" id="createTask" (click)="this.saveNewTask()" >Save Task</button>
+      <button *ngIf="!this.isNewRowAddingVisible" routerLink="" id="createTask">Close</button>
+      <button *ngIf="this.isNewRowAddingVisible"  (click)="this.cancelNewTask()"  >Cancel</button>
     </div>
 
-    <table>
-      <thead>
-      <th *ngFor="let taskTableHead of taskTableHeader" >{{taskTableHead}}</th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let task of tasks" >
-        <td> <input name="inputTaskId" value="{{task.taskId}}" disabled>  </td>
 
-        <td><a href="">×</a></td>
-        <td><a href="">×</a></td>
-      </tr>
-      </tbody>
-    </table>
 
   </section>
 

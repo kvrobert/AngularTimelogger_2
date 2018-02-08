@@ -16,6 +16,7 @@ import {TimeloggerService} from "./timelogger.service";
 import {MessageService} from "./message.service";
 import { MessageComponent } from './message/message.component';
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserModule,
     AppRoutingModule,       // RouterModule hiányzik...azt is hozzá kell adni, hogy kezelni tudja a routokat.
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [ TimeloggerService,
               MessageService

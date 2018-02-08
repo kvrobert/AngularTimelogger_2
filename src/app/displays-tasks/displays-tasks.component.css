@@ -60,6 +60,7 @@
   border-top: 1px solid #ddd;
   text-align: center;
   padding: 5px;
+  height: 20px;
 }
 .popUpWindow > section table tbody tr:hover
 {
@@ -68,4 +69,17 @@
 .popUpWindow > section table tbody td a
 {
   text-decoration: none;
+}
+.editTask{
+  cursor: pointer;
+}
+
+.popUpWindow > section table tbody td input[type=text] {
+  width: 50%;
+  height: 90%;
+  font-family: 'Diplomata', cursive;
+  display: ruby;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
