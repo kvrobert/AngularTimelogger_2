@@ -50,10 +50,12 @@ export class TimeloggerService {
     { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'}
 
   ];*/
-
+   host: string = 'http://localhost:4200'
    urlGETWokmonths = 'http://localhost:8080/timelogger/workmonths/';
    urlGETWokDays = this.urlGETWokmonths;
    urlGetTasks = this.urlGETWokmonths;
+   urlAddTask = this.host + "/workmonths/workdays/tasks/start";
+   httpOption = { headers: new HttpHeaders( { 'Content-Type': 'application/json' } ) }
 
    private WDApi: WDayApis[];
    private WMApi: WMontApis[];
@@ -107,6 +109,16 @@ export class TimeloggerService {
     const URL = `${this.urlGetTasks}${year}/${month}/${day}`;
     console.log("Task request form "+ URL);
     return this.http.get< TaskApis[] >( URL );
+  }
+
+  addNewTask( task: Task ): void {
+    console.log("From addTask SERVICE..task is: " + task.year
+                                                  + task.month
+                                                  + task.day
+                                                  + task.comment
+                                                  + task.startTime
+                                                  + task.endTime);
+    this.http.post( this.urlAddTask, task, this.httpOption );
   }
 
   log(message: string):void {

@@ -65,6 +65,13 @@ export class DisplaysTasksComponent implements OnInit {
     this.editableTaskId = "";
     this.editableTaskStartTime = "";
   }
+
+  // TODO
+  saveRowEdition(): void {
+
+
+  }
+
   // TODO
   addNewTaskRow(): void{
     this.newRow = new Task(moment().year(), moment().month() + 1, moment().date(), "", "", "", "");
@@ -75,16 +82,15 @@ export class DisplaysTasksComponent implements OnInit {
     this.editableTaskId = taskId;
     this.editableTaskStartTime = startTime;
   }
-  // TODO
-  saveRowEdition(): void {
 
-    // TOD
-  }saveNewTask(): void {
+  saveNewTask(): void {
+    this.timeloggerService.addNewTask( this.newRow );
     this.isNewRowAddingVisible = false;
   }
 
   cancelNewTask(): void {
     this.isNewRowAddingVisible = false;
+    this.newRow = null;
   }
 
 }
