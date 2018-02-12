@@ -26,15 +26,15 @@ export class DisplaysTasksComponent implements OnInit {
   /** to the editable table  */
   private editableTaskId: string;
   private editableTaskStartTime: string;
-  private isNewRowAddingVisible: boolean = false;
+  private isNewRowAddingVisible  = false;
 
 
   constructor( private  timeloggerService: TimeloggerService) { }
 
   ngOnInit() {
-
     this.timeloggerService.currentCommonDateObs.subscribe( curCommDate => this.currentCommonDate = curCommDate );
     this.getTasks();
+    this.modifiedTask = new TaskForModifi();
   }
 
   getTasks(): void {
@@ -58,35 +58,57 @@ export class DisplaysTasksComponent implements OnInit {
      );
   }
 
-  editRow(taskId: string, startTime: string): void {
-    console.log("EdiRow..." + taskId +";"+ startTime);
-    this.editableTaskId = taskId;
-    this.editableTaskStartTime = startTime;
+  editRow(task: Task): void {
+    console.log("EdiRow..." + task.taskId +";"+ task.startTime);
+    this.editableTaskId = task.taskId;
+    this.editableTaskStartTime = task.startTime;
+    /**  Add the old task data */
+    this.modifiedTask.year = task.year;
+    this.modifiedTask.month = task.month;
+    this.modifiedTask.day = task.day;
+    this.modifiedTask.taskId = task.taskId;
+    this.modifiedTask.startTime = task.startTime;
   }
-  editCancel(): void{
+  editCancel(): void {
     this.editableTaskId = "";
     this.editableTaskStartTime = "";
   }
 
   // TODO
   saveRowEdition( tsk: Task ): void {
-    console.log( "New task Data.." + tsk.taskId + ":"  + tsk.day + tsk.startTime +"-" + tsk.endTime );
+    this.modifiedTask.newTaskId = tsk.taskId;
+    this.modifiedTask.newComment = tsk.comment;
+    this.modifiedTask.newStartTime = tsk.startTime;
+    this.modifiedTask.newEndTime = tsk.endTime;
+
+    console.log( "The new task Data.." + tsk.taskId + ":"  + tsk.day + tsk.startTime +"-" + tsk.endTime );
+
     this.editableTaskId = "";
     this.editableTaskStartTime = "";
-
   }
 
   // TODO
   addNewTaskRow(): void   {
     this.newRow = new Task( this.currentCommonDate.getFullYear(),
                             this.currentCommonDate.getMonth() + 1,
-                            this.currentCommonDate.getDate(), "", "", "", "");
+                            this.currentCommonDate.getDate(),
+                            "", "", "", "");
     this.isNewRowAddingVisible = !this.isNewRowAddingVisible;
   }
 
-  deleteRow(taskId: string, startTime: string): void {
-    this.editableTaskId = taskId;
-    this.editableTaskStartTime = startTime;
+  deleteRow( task: Task ): void {
+    this.editableTaskId = task.taskId;
+    this.editableTaskStartTime = task.startTime;
+  }
+
+  saveDeleteRow( task: Task ): void {
+
+    this.tasks = this.tasks.filter( tsk => tsk !== task  );
+
+    //Subscribe for the Task delete Service
+
+    this.editableTaskId = "";
+    this.editableTaskStartTime = "";
   }
 
   saveNewTask(): void {

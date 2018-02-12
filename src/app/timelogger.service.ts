@@ -16,6 +16,7 @@ import {TaskApis} from "./Interfaces/task-apis";
 import {Http} from "@angular/http";
 import {Time} from "@angular/common";
 import {Moment} from "moment";
+import {DelTask} from "./Entity/del-task";
 
 
 @Injectable()
@@ -58,7 +59,8 @@ export class TimeloggerService {
    urlGETWokDays = this.urlGETWokmonths;
    urlGetTasks = this.urlGETWokmonths;
    urlAddTask = this.host + "/workmonths/workdays/tasks/start";
-   httpOption = { headers: new HttpHeaders( { 'Content-Type': 'application/json' } ) }
+   urlDeleteTask = this.host + "/workmonths/workdays/tasks/delete";
+   httpOption = { headers: new HttpHeaders( { 'Content-Type': 'application/json' } ) };
 
    private WDApi: WDayApis[];
    private WMApi: WMontApis[];
@@ -89,11 +91,6 @@ export class TimeloggerService {
 
 
    /** Get Workmonths from the server */
-  /* getWorkMonths(): Observable< WorkMonth[] > {
-    this.messageService.addMessage( 'WorkMonths fetched....' );
-    return this.http.get<WorkMonth[]>( this.urlWokmonths );
-  } */ // Test
-
   getWMontApis(): Observable< WMontApis[] > {
    // this.messageService.addMessage('WorkMonths fetched....');
     console.log('getApis from service');
@@ -125,8 +122,22 @@ export class TimeloggerService {
     console.log( task.startTime + " - " + task.endTime );
     // TODOO
 
-
     return this.http.post( this.urlAddTask, task,  this.httpOption );
+  }
+
+  deleteTask(task: Task): void {
+
+    delTask = new DelTask( task.year,
+                                    task.month,
+                                    task.day,
+                                    task.taskId,
+                                    task.startTime );
+
+    console.log( "Delete task..." + delTask.taskId + ":" + delTask.startTime );
+
+
+
+    )
   }
 
   log(message: string):void {

@@ -31,9 +31,9 @@
         <td *ngIf="task.taskId == this.editableTaskId && task.startTime == this.editableTaskStartTime" ><input type="text" [(ngModel)]="task.endTime"  ></td>
 
         <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime"
-                                                  class="editTask" (click)="this.editRow( task.taskId, task.startTime )" >X</td>
+                                                  class="editTask" (click)="this.editRow( task )" >X</td>
         <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime"
-                                                  class="editTask" (click)="this.deleteRow( task.taskId, task.startTime )">X</td>
+                                                  class="editTask" (click)="this.deleteRow( task )">X</td>
 
         <td *ngIf="task.taskId == this.editableTaskId && task.startTime == this.editableTaskStartTime"
             class="editTask" (click)="this.editCancel( task.taskId, task.startTime )">CANCEL</td>
