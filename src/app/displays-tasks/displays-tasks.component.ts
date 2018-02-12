@@ -3,6 +3,8 @@ import { Task } from '../Entity/task';
 import {TimeloggerService} from "../timelogger.service";
 import {TaskApis} from "../Interfaces/task-apis";
 import moment = require("moment");
+import {TaskForModifi} from "../Entity/task-for-modifi";
+
 
 @Component({
   selector: 'app-displays-tasks',
@@ -18,6 +20,7 @@ export class DisplaysTasksComponent implements OnInit {
   currentCommonDate: Date;
 
   newRow: Task;
+  modifiedTask: TaskForModifi;
 
 
   /** to the editable table  */
@@ -48,7 +51,6 @@ export class DisplaysTasksComponent implements OnInit {
              let comment = task.comment.toString();
              let startTime = task.startTime.toString();
              let endTIme = task.endTime.toString();
-
              return new Task( year, month, day, id, comment, startTime, endTIme );
            }
          );
@@ -67,14 +69,18 @@ export class DisplaysTasksComponent implements OnInit {
   }
 
   // TODO
-  saveRowEdition(): void {
-
+  saveRowEdition( tsk: Task ): void {
+    console.log( "New task Data.." + tsk.taskId + ":"  + tsk.day + tsk.startTime +"-" + tsk.endTime );
+    this.editableTaskId = "";
+    this.editableTaskStartTime = "";
 
   }
 
   // TODO
-  addNewTaskRow(): void{
-    this.newRow = new Task(moment().year(), moment().month() + 1, moment().date(), "", "", "", "");
+  addNewTaskRow(): void   {
+    this.newRow = new Task( this.currentCommonDate.getFullYear(),
+                            this.currentCommonDate.getMonth() + 1,
+                            this.currentCommonDate.getDate(), "", "", "", "");
     this.isNewRowAddingVisible = !this.isNewRowAddingVisible;
   }
 
@@ -84,7 +90,13 @@ export class DisplaysTasksComponent implements OnInit {
   }
 
   saveNewTask(): void {
-    this.timeloggerService.addNewTask( this.newRow );
+    this.timeloggerService.addNewTask( this.newRow )
+      .subscribe(
+          result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
+          error => alert( "Monething went wrong..." + error ),
+        () => console.log( "Finished" )
+      );
+
     this.isNewRowAddingVisible = false;
   }
 

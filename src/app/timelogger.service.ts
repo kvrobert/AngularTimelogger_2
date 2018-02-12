@@ -13,6 +13,9 @@ import * as moment from "moment";
 import _date = moment.unitOfTime._date;
 import {stringDistance} from "codelyzer/util/utils";
 import {TaskApis} from "./Interfaces/task-apis";
+import {Http} from "@angular/http";
+import {Time} from "@angular/common";
+import {Moment} from "moment";
 
 
 @Injectable()
@@ -50,8 +53,8 @@ export class TimeloggerService {
     { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'}
 
   ];*/
-   host: string = 'http://localhost:4200'
-   urlGETWokmonths = 'http://localhost:8080/timelogger/workmonths/';
+   host: string = 'http://localhost:8080/timelogger'
+   urlGETWokmonths = this.host + '/workmonths/';
    urlGETWokDays = this.urlGETWokmonths;
    urlGetTasks = this.urlGETWokmonths;
    urlAddTask = this.host + "/workmonths/workdays/tasks/start";
@@ -71,7 +74,7 @@ export class TimeloggerService {
 
 
   constructor( private messageService: MessageService,
-                private  http: HttpClient) { }
+                private  http: HttpClient ) { }
 
   changeCurrentCommonDate( chanchedDate: Date ){
     this.currentCommonDateSource.next( chanchedDate );
@@ -111,17 +114,24 @@ export class TimeloggerService {
     return this.http.get< TaskApis[] >( URL );
   }
 
-  addNewTask( task: Task ): void {
+  addNewTask( task: Task ){
     console.log("From addTask SERVICE..task is: " + task.year
                                                   + task.month
                                                   + task.day
                                                   + task.comment
                                                   + task.startTime
                                                   + task.endTime);
-    this.http.post( this.urlAddTask, task, this.httpOption );
+
+    console.log( task.startTime + " - " + task.endTime );
+    // TODOO
+
+
+    return this.http.post( this.urlAddTask, task,  this.httpOption );
   }
 
   log(message: string):void {
     this.messageService.addLogMessage('Timelogger: ' + message);
   }
+
+
 }

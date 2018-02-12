@@ -74,11 +74,11 @@
   cursor: pointer;
 }
 
-.popUpWindow > section table tbody td input[type=text] {
-  width: 50%;
-  height: 90%;
+.popUpWindow > section table tbody td input {
+  width: 100%;
+  height: 100%;
   font-family: 'Diplomata', cursive;
-  display: ruby;
+  display: inline;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;

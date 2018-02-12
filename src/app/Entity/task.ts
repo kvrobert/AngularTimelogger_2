@@ -23,6 +23,6 @@ export class Task {
     this.comment = comment;
     this.startTime = startTime;
     this.endTime = endTime;
-
   }
+
 }
