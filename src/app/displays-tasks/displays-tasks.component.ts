@@ -96,7 +96,27 @@ export class DisplaysTasksComponent implements OnInit {
     this.isNewRowAddingVisible = !this.isNewRowAddingVisible;
   }
 
+  saveNewTask(): void {
+    this.timeloggerService.addNewTask( this.newRow )
+      .subscribe(
+          result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
+          error => alert( "Sonething went wrong..." + error ),
+        () => console.log( "Finished" )
+      );
+
+    this.isNewRowAddingVisible = false;
+  }
+
   deleteRow( task: Task ): void {
+    this.timeloggerService.deleteTask( task )
+       .subscribe( 
+         result => console.log( "The response: " + JSON.stringify( result ) ),
+         error => alert( "Something went wrong by TaskDelete..." + error ),
+         () => console.log( "Complet" )
+        );
+
+
+
     this.editableTaskId = task.taskId;
     this.editableTaskStartTime = task.startTime;
   }
@@ -109,17 +129,6 @@ export class DisplaysTasksComponent implements OnInit {
 
     this.editableTaskId = "";
     this.editableTaskStartTime = "";
-  }
-
-  saveNewTask(): void {
-    this.timeloggerService.addNewTask( this.newRow )
-      .subscribe(
-          result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
-          error => alert( "Monething went wrong..." + error ),
-        () => console.log( "Finished" )
-      );
-
-    this.isNewRowAddingVisible = false;
   }
 
   cancelNewTask(): void {

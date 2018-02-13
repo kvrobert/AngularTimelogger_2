@@ -64,6 +64,7 @@ export class TimeloggerService {
 
    private WDApi: WDayApis[];
    private WMApi: WMontApis[];
+   private delTask: DelTask;
    /** Synchronisiert the date between the component */
    private currentCommonDateSource = new BehaviorSubject< Date >( moment().toDate() );
    currentCommonDateObs = this.currentCommonDateSource.asObservable();
@@ -111,7 +112,7 @@ export class TimeloggerService {
     return this.http.get< TaskApis[] >( URL );
   }
 
-  addNewTask( task: Task ){
+  addNewTask( task: Task ) {
     console.log("From addTask SERVICE..task is: " + task.year
                                                   + task.month
                                                   + task.day
@@ -125,19 +126,18 @@ export class TimeloggerService {
     return this.http.post( this.urlAddTask, task,  this.httpOption );
   }
 
-  deleteTask(task: Task): void {
+  deleteTask(task: Task) {
 
-    delTask = new DelTask( task.year,
+    this.delTask = new DelTask( task.year,
                                     task.month,
                                     task.day,
                                     task.taskId,
                                     task.startTime );
 
-    console.log( "Delete task..." + delTask.taskId + ":" + delTask.startTime );
+    console.log( "Delete task..." + this.delTask.taskId + ":" + this.delTask.startTime );
+    return this.http.put( this.urlDeleteTask, this.delTask, this.httpOption );
 
-
-
-    )
+    
   }
 
   log(message: string):void {
