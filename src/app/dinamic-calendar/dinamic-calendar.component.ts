@@ -20,7 +20,7 @@ export interface CalendarDate {
 export class DinamicCalendarComponent implements OnInit {
   // Ha nem megy így létrehozk egy currentDatet---és a ngOnChangeban változtatom....
   currentDate = moment();
-  dayNames = ['So', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  dayNames = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
   weeks: CalendarDate[][] = [];
   sortedDates: CalendarDate[] = [];
 
@@ -128,7 +128,7 @@ export class DinamicCalendarComponent implements OnInit {
   }
 
   fillDates(currentMoment: moment.Moment): CalendarDate[] {
-    const firstOfMonth = moment(currentMoment).startOf('month').day();
+    const firstOfMonth = moment(currentMoment).startOf('month').day() - 1; /* Magyar naptár miatt..amúgy a Su a hét első napja */
     const firstDayOfGrid = moment(currentMoment).startOf('month').subtract(firstOfMonth, 'days');
     const start = firstDayOfGrid.date();
     return _.range(start, start + 42)

@@ -8,10 +8,11 @@
       <th *ngFor="let taskTableHead of taskTableHeader" >{{taskTableHead}}</th>
       </thead>
       <tbody>
+      <pre>{{tasks | json}}</pre>
       <tr *ngFor="let task of this.tasks" >
         <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime" >{{task.taskId}}</td>
         <td *ngIf="task.taskId == this.editableTaskId && task.startTime == this.editableTaskStartTime" > <input type="text"  [(ngModel)]="task.taskId"  > </td>
-
+        
         <td *ngIf="task.taskId != this.editableTaskId && task.startTime != this.editableTaskStartTime" >{{task.year}}</td>
         <td *ngIf="task.taskId == this.editableTaskId && task.startTime == this.editableTaskStartTime" ><input type="text" [(ngModel)]="task.year" ></td>
 
