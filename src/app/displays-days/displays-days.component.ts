@@ -28,7 +28,8 @@ export class DisplaysDaysComponent implements OnInit {
     
   }
 
-  getWorkDays(): void {
+  getWorkDays(): void {  
+    this.workDays = null;  
     console.log( "currentCommonDate from DisplaysMonth is " + this.currentCommonDateDay );
     const year = +this.currentCommonDateDay.getFullYear();
     const month = +this.currentCommonDateDay.getMonth()+1;

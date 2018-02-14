@@ -31,7 +31,7 @@ export class DinamicCalendarComponent implements OnInit {
 
   private WDApi: WDayApis[];
   private WMApi: WMontApis[];
-  private WDs: WorkDay[];
+  private WDs: WorkDay[] = null;
   private activeDays: number[];
   
   constructor( private timeloggerService: TimeloggerService ) {}
@@ -121,6 +121,7 @@ export class DinamicCalendarComponent implements OnInit {
 
 /** Change the current Date to use it in other components**/
     this.timeloggerService.changeCurrentCommonDate( this.currentDate.toDate() );
+    this.timeloggerService.workDayCommonOBS.subscribe( wdays => this.WDs = wdays );
    // console.log( "Date change.....to..." + this.currentDate.toDate() );
 
   }
@@ -177,13 +178,14 @@ export class DinamicCalendarComponent implements OnInit {
 
   }
 
-  isContainTaskData( date: moment.Moment ): boolean {
+  isContainTaskData( date ): boolean {      
     let isContaindata = false;
-    for( let day of this.WDs  ){
-      console.log( moment(moment(date), 'day')  );
-      if( moment(moment(date), 'day').isSame( day.day ) ) { isContaindata = true; }
-    }
+    if( this.WDs != null ){
+      for( let day of this.WDs  ){
+        if( moment(moment(date), 'day').isSame( day.day ) ) { isContaindata = true; }
+      }
     return isContaindata;
+  }else return false;
   }
 
 
