@@ -4,6 +4,7 @@ import {TimeloggerService} from "../timelogger.service";
 import {TaskApis} from "../Interfaces/task-apis";
 import moment = require("moment");
 import {TaskForModifi} from "../Entity/task-for-modifi";
+import { getLocaleTimeFormat } from '@angular/common/src/i18n/locale_data_api';
 
 
 @Component({
@@ -20,6 +21,8 @@ export class DisplaysTasksComponent implements OnInit {
   currentCommonDate: Date;
 
   newRow: Task;
+  selectedTask: Task;
+  
   modifiedTask: TaskForModifi;
 
 
@@ -49,8 +52,8 @@ export class DisplaysTasksComponent implements OnInit {
          this.tasks = taskAPI.map( task => {
              let id = task.taskID.toString();
              let comment = task.comment.toString();
-             let startTime = task.startTime.toString();
-             let endTIme = task.endTime.toString();
+             let startTime = this.convertDigits( task.startTime );                             //task.startTime.toString();
+             let endTIme = this.convertDigits( task.endTime );                                //task.endTime.toString();
              return new Task( year, month, day, id, comment, startTime, endTIme );
            }
          );
@@ -60,8 +63,10 @@ export class DisplaysTasksComponent implements OnInit {
 
   editRow(task: Task): void {
     console.log("EdiRow..." + task.taskId +";"+ task.startTime);
-    this.editableTaskId = task.taskId;
-    this.editableTaskStartTime = task.startTime;
+this.selectedTask = task;
+
+                                                                      /*this.editableTaskId = task.taskId;
+                                                                      this.editableTaskStartTime = task.startTime; */
     /**  Add the old task data */
     this.modifiedTask.year = task.year;
     this.modifiedTask.month = task.month;
@@ -69,22 +74,33 @@ export class DisplaysTasksComponent implements OnInit {
     this.modifiedTask.taskId = task.taskId;
     this.modifiedTask.startTime = task.startTime;
   }
-  editCancel(): void {
-    this.editableTaskId = "";
-    this.editableTaskStartTime = "";
+  
+  editCancel( task: Task ): void {
+                                                                   /* this.editableTaskId = "";
+                                                                    this.editableTaskStartTime = ""; */
+    this.selectedTask = null;
   }
 
   // TODO
   saveRowEdition( tsk: Task ): void {
+    this.selectedTask = null;
+
     this.modifiedTask.newTaskId = tsk.taskId;
     this.modifiedTask.newComment = tsk.comment;
     this.modifiedTask.newStartTime = tsk.startTime;
     this.modifiedTask.newEndTime = tsk.endTime;
 
-    console.log( "The new task Data.." + tsk.taskId + ":"  + tsk.day + tsk.startTime +"-" + tsk.endTime );
+    console.log( "The new task Data.." + tsk.taskId + ":"  + tsk.day + "-" + tsk.startTime +"-" + tsk.endTime );
 
-    this.editableTaskId = "";
-    this.editableTaskStartTime = "";
+                                                                    /*  this.editableTaskId = "";
+                                                                      this.editableTaskStartTime = ""; */
+    this.timeloggerService.modifyTask( this.modifiedTask )
+    .subscribe(
+      result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
+      error => alert( "Sonething went wrong..." + JSON.stringify( error ) ),
+      () => alert( "Task modified complet." )
+      )                                                                    
+    
   }
 
   // TODO
@@ -134,6 +150,28 @@ export class DisplaysTasksComponent implements OnInit {
   cancelNewTask(): void {
     this.isNewRowAddingVisible = false;
     this.newRow = null;
+  }
+
+  convertDigits( number: number[] ): string {
+    let hour;
+    let minute
+    if( number[0] < 10 ){ 
+      hour = this.toTwoDigits( number[0] ) 
+    }
+    else{
+      hour = number[0];      
+    }
+    if( number[1] < 10 ){ 
+      minute = this.toTwoDigits( number[1] ) 
+    }
+    else{
+      minute = number[1];     
+    }    
+    return "" + hour + ":" + minute;
+  }
+
+  toTwoDigits(digit: number ): string{    
+    return "0" + digit;
   }
 
 }
