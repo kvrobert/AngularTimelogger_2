@@ -68,6 +68,7 @@ export class TimeloggerService {
 
    private WDApi: WDayApis[];
    private WMApi: WMontApis[];
+   private workDaysCommon: WorkDay[];
    private delTask: DelTask;
    /** Synchronisiert the date between the component */
    private currentCommonDateSource = new BehaviorSubject< Date >( moment().toDate() );
@@ -78,6 +79,9 @@ export class TimeloggerService {
   /** Synchronisiert the WM APIS between the component */
    private workMonthCommonSource = new BehaviorSubject< WMontApis[] >( this.WMApi );
    workMonthCommonOBS = this.workMonthCommonSource.asObservable();
+   /** Synchronisiert the WorkDays between the components */
+   private workDaysCommonSource = new BehaviorSubject< WorkDay[] >( this.workDaysCommon );
+   workDayCommonOBS = this.workDaysCommonSource.asObservable();
 
 
   constructor( private messageService: MessageService,
@@ -92,6 +96,9 @@ export class TimeloggerService {
   }
   changedworkMonthCommon( changedWMApi: WMontApis[] ){
     this.workMonthCommonSource.next( changedWMApi );
+  }
+  changedWorkDayCommon( changedWD: WorkDay[] ){ 
+    this.workDaysCommonSource.next( changedWD );
   }
 
 

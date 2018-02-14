@@ -20,12 +20,14 @@ export class DisplaysDaysComponent implements OnInit {
 
   constructor( private timeloggerService: TimeloggerService,
                private route: ActivatedRoute,
-                private location: Location) { }
+                private location: Location ) { }
 
   ngOnInit() {
     this.timeloggerService.currentCommonDateObs.subscribe( curCommDate => this.currentCommonDateDay = curCommDate );
-    this.getWorkDays();
+    this.getWorkDays();  
+    
   }
+
   getWorkDays(): void {
     console.log( "currentCommonDate from DisplaysMonth is " + this.currentCommonDateDay );
     const year = +this.currentCommonDateDay.getFullYear();
@@ -40,6 +42,7 @@ export class DisplaysDaysComponent implements OnInit {
           let reqMin = workday.requiredMinPerDay;
           return new WorkDay( year, month, day, reqMin );
         } )
+        this.timeloggerService.changedWorkDayCommon( this.workDays );  
       }
     )
   }

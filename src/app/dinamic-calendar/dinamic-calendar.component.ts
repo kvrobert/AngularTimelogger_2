@@ -32,8 +32,8 @@ export class DinamicCalendarComponent implements OnInit {
   private WDApi: WDayApis[];
   private WMApi: WMontApis[];
   private WDs: WorkDay[];
-
-
+  private activeDays: number[];
+  
   constructor( private timeloggerService: TimeloggerService ) {}
 
   ngOnInit(): void {
@@ -41,6 +41,7 @@ export class DinamicCalendarComponent implements OnInit {
     this.timeloggerService.currentCommonDateObs.subscribe( curCommDate => this.currentCommonDate = curCommDate );
     this.timeloggerService.workDayApiCommonOBS.subscribe( wdApiOBS => this.WDApi = wdApiOBS );
     this.timeloggerService.workMonthCommonOBS.subscribe( wmApiOBS => this.WMApi = wmApiOBS );
+    this.timeloggerService.workDayCommonOBS.subscribe( wdays => this.WDs = wdays );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -110,6 +111,7 @@ export class DinamicCalendarComponent implements OnInit {
 
   // generate the calendar grid
   generateCalendar(): void {
+
     const dates = this.fillDates(this.currentDate);
     const weeks: CalendarDate[][] = [];
     while (dates.length > 0) {
@@ -134,7 +136,7 @@ export class DinamicCalendarComponent implements OnInit {
     return _.range(start, start + 42)
       .map((date: number): CalendarDate => {
         const d = moment(firstDayOfGrid).date(date);
-        return {
+        return { 
           today: this.isToday(d),
           selected: this.isSelected(d),
           mDate: d,
@@ -175,4 +177,21 @@ export class DinamicCalendarComponent implements OnInit {
 
   }
 
+  isContainTaskData( date: moment.Moment ): boolean {
+    let isContaindata = false;
+    for( let day of this.WDs  ){
+      console.log( moment(moment(date), 'day')  );
+      if( moment(moment(date), 'day').isSame( day.day ) ) { isContaindata = true; }
+    }
+    return isContaindata;
+  }
+
+
+
+  /*isToday(date: moment.Moment): boolean {
+    return moment().isSame(moment(date), 'day');
+  }*/
+
 }
+
+

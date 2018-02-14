@@ -116,8 +116,8 @@ this.selectedTask = task;
     this.timeloggerService.addNewTask( this.newRow )
       .subscribe(
           result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
-          error => alert( "Sonething went wrong..." + error ),
-        () => console.log( "Finished" )
+          error => alert( "Sonething went wrong..." + JSON.stringify( error ) ),
+        () => alert("The new Task added completed.")
       );
 
     this.isNewRowAddingVisible = false;
