@@ -5,6 +5,7 @@ import {TaskApis} from "../Interfaces/task-apis";
 import moment = require("moment");
 import {TaskForModifi} from "../Entity/task-for-modifi";
 import { getLocaleTimeFormat } from '@angular/common/src/i18n/locale_data_api';
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -19,10 +20,11 @@ export class DisplaysTasksComponent implements OnInit {
   tasks: Task[];
   tasksAPI: TaskApis[];
   currentCommonDate: Date;
+  router: Router;
 
   newRow: Task;
   selectedTask: Task;
-  
+
   modifiedTask: TaskForModifi;
 
 
@@ -32,7 +34,7 @@ export class DisplaysTasksComponent implements OnInit {
   private isNewRowAddingVisible  = false;
 
 
-  constructor( private  timeloggerService: TimeloggerService) { }
+  constructor( private  timeloggerService: TimeloggerService ) { }
 
   ngOnInit() {
     this.timeloggerService.currentCommonDateObs.subscribe( curCommDate => this.currentCommonDate = curCommDate );
@@ -74,7 +76,7 @@ this.selectedTask = task;
     this.modifiedTask.taskId = task.taskId;
     this.modifiedTask.startTime = task.startTime;
   }
-  
+
   editCancel( task: Task ): void {
                                                                    /* this.editableTaskId = "";
                                                                     this.editableTaskStartTime = ""; */
@@ -99,8 +101,8 @@ this.selectedTask = task;
       result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
       error => alert( "Sonething went wrong..." + JSON.stringify( error ) ),
       () => alert( "Task modified complet." )
-      )                                                                    
-    
+      )
+
   }
 
   // TODO
@@ -113,38 +115,29 @@ this.selectedTask = task;
   }
 
   saveNewTask(): void {
+    this.isNewRowAddingVisible = false;
     this.timeloggerService.addNewTask( this.newRow )
       .subscribe(
           result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
           error => alert( "Sonething went wrong..." + JSON.stringify( error ) ),
         () => alert("The new Task added completed.")
       );
+    this.router.navigateByUrl("");
 
-    this.isNewRowAddingVisible = false;
   }
 
   deleteRow( task: Task ): void {
     this.timeloggerService.deleteTask( task )
-       .subscribe( 
+       .subscribe(
          result => console.log( "The response: " + JSON.stringify( result ) ),
-         error => alert( "Something went wrong by TaskDelete..." + error ),
-         () => console.log( "Complet" )
+         error => alert( "Something went wrong by TaskDelete..." + JSON.stringify( error ),
+         () => alert("Task deletion complete")
         );
 
 
 
     this.editableTaskId = task.taskId;
     this.editableTaskStartTime = task.startTime;
-  }
-
-  saveDeleteRow( task: Task ): void {
-
-    this.tasks = this.tasks.filter( tsk => tsk !== task  );
-
-    //Subscribe for the Task delete Service
-
-    this.editableTaskId = "";
-    this.editableTaskStartTime = "";
   }
 
   cancelNewTask(): void {
@@ -155,22 +148,22 @@ this.selectedTask = task;
   convertDigits( number: number[] ): string {
     let hour;
     let minute
-    if( number[0] < 10 ){ 
-      hour = this.toTwoDigits( number[0] ) 
+    if( number[0] < 10 ){
+      hour = this.toTwoDigits( number[0] )
     }
     else{
-      hour = number[0];      
+      hour = number[0];
     }
-    if( number[1] < 10 ){ 
-      minute = this.toTwoDigits( number[1] ) 
+    if( number[1] < 10 ){
+      minute = this.toTwoDigits( number[1] )
     }
     else{
-      minute = number[1];     
-    }    
+      minute = number[1];
+    }
     return "" + hour + ":" + minute;
   }
 
-  toTwoDigits(digit: number ): string{    
+  toTwoDigits(digit: number ): string{
     return "0" + digit;
   }
 

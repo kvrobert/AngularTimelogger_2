@@ -33,7 +33,7 @@ export class DinamicCalendarComponent implements OnInit {
   private WMApi: WMontApis[];
   private WDs: WorkDay[] = null;
   private activeDays: number[];
-  
+
   constructor( private timeloggerService: TimeloggerService ) {}
 
   ngOnInit(): void {
@@ -51,6 +51,7 @@ export class DinamicCalendarComponent implements OnInit {
       // sort on date changes for better performance when range checking
       this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
       this.generateCalendar();
+      this.timeloggerService.workDayCommonOBS.subscribe( wdays => this.WDs = wdays );
     }
   }
 
@@ -137,7 +138,7 @@ export class DinamicCalendarComponent implements OnInit {
     return _.range(start, start + 42)
       .map((date: number): CalendarDate => {
         const d = moment(firstDayOfGrid).date(date);
-        return { 
+        return {
           today: this.isToday(d),
           selected: this.isSelected(d),
           mDate: d,
@@ -178,7 +179,7 @@ export class DinamicCalendarComponent implements OnInit {
 
   }
 
-  isContainTaskData( date ): boolean {      
+  isContainTaskData( date ): boolean {
     let isContaindata = false;
     if( this.WDs != null ){
       for( let day of this.WDs  ){
