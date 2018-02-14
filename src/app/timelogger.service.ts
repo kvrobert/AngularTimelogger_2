@@ -17,6 +17,7 @@ import {Http} from "@angular/http";
 import {Time} from "@angular/common";
 import {Moment} from "moment";
 import {DelTask} from "./Entity/del-task";
+import { TaskForModifi } from './Entity/task-for-modifi';
 
 
 @Injectable()
@@ -54,16 +55,20 @@ export class TimeloggerService {
     { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'}
 
   ];*/
+
+  /* URLs for the APIs */
    host: string = 'http://localhost:8080/timelogger'
    urlGETWokmonths = this.host + '/workmonths/';
    urlGETWokDays = this.urlGETWokmonths;
    urlGetTasks = this.urlGETWokmonths;
    urlAddTask = this.host + "/workmonths/workdays/tasks/start";
    urlDeleteTask = this.host + "/workmonths/workdays/tasks/delete";
+   urlModifiTask= this.host + "/workmonths/workdays/tasks/modify"
    httpOption = { headers: new HttpHeaders( { 'Content-Type': 'application/json' } ) };
 
    private WDApi: WDayApis[];
    private WMApi: WMontApis[];
+   private workDaysCommon: WorkDay[];
    private delTask: DelTask;
    /** Synchronisiert the date between the component */
    private currentCommonDateSource = new BehaviorSubject< Date >( moment().toDate() );
@@ -74,6 +79,9 @@ export class TimeloggerService {
   /** Synchronisiert the WM APIS between the component */
    private workMonthCommonSource = new BehaviorSubject< WMontApis[] >( this.WMApi );
    workMonthCommonOBS = this.workMonthCommonSource.asObservable();
+   /** Synchronisiert the WorkDays between the components */
+   private workDaysCommonSource = new BehaviorSubject< WorkDay[] >( this.workDaysCommon );
+   workDayCommonOBS = this.workDaysCommonSource.asObservable();
 
 
   constructor( private messageService: MessageService,
@@ -88,6 +96,9 @@ export class TimeloggerService {
   }
   changedworkMonthCommon( changedWMApi: WMontApis[] ){
     this.workMonthCommonSource.next( changedWMApi );
+  }
+  changedWorkDayCommon( changedWD: WorkDay[] ){ 
+    this.workDaysCommonSource.next( changedWD );
   }
 
 
@@ -113,21 +124,10 @@ export class TimeloggerService {
   }
 
   addNewTask( task: Task ) {
-    console.log("From addTask SERVICE..task is: " + task.year
-                                                  + task.month
-                                                  + task.day
-                                                  + task.comment
-                                                  + task.startTime
-                                                  + task.endTime);
-
-    console.log( task.startTime + " - " + task.endTime );
-    // TODOO
-
     return this.http.post( this.urlAddTask, task,  this.httpOption );
   }
 
   deleteTask(task: Task) {
-
     this.delTask = new DelTask( task.year,
                                     task.month,
                                     task.day,
@@ -135,9 +135,11 @@ export class TimeloggerService {
                                     task.startTime );
 
     console.log( "Delete task..." + this.delTask.taskId + ":" + this.delTask.startTime );
-    return this.http.put( this.urlDeleteTask, this.delTask, this.httpOption );
+    return this.http.put( this.urlDeleteTask, this.delTask, this.httpOption );    
+  }
 
-    
+  modifyTask( taskForModify: TaskForModifi  ){
+    return this.http.put( this.urlModifiTask, taskForModify, this.httpOption );
   }
 
   log(message: string):void {

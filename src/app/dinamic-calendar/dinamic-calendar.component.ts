@@ -31,9 +31,9 @@ export class DinamicCalendarComponent implements OnInit {
 
   private WDApi: WDayApis[];
   private WMApi: WMontApis[];
-  private WDs: WorkDay[];
-
-
+  private WDs: WorkDay[] = null;
+  private activeDays: number[];
+  
   constructor( private timeloggerService: TimeloggerService ) {}
 
   ngOnInit(): void {
@@ -41,6 +41,7 @@ export class DinamicCalendarComponent implements OnInit {
     this.timeloggerService.currentCommonDateObs.subscribe( curCommDate => this.currentCommonDate = curCommDate );
     this.timeloggerService.workDayApiCommonOBS.subscribe( wdApiOBS => this.WDApi = wdApiOBS );
     this.timeloggerService.workMonthCommonOBS.subscribe( wmApiOBS => this.WMApi = wmApiOBS );
+    this.timeloggerService.workDayCommonOBS.subscribe( wdays => this.WDs = wdays );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -110,6 +111,7 @@ export class DinamicCalendarComponent implements OnInit {
 
   // generate the calendar grid
   generateCalendar(): void {
+
     const dates = this.fillDates(this.currentDate);
     const weeks: CalendarDate[][] = [];
     while (dates.length > 0) {
@@ -119,6 +121,7 @@ export class DinamicCalendarComponent implements OnInit {
 
 /** Change the current Date to use it in other components**/
     this.timeloggerService.changeCurrentCommonDate( this.currentDate.toDate() );
+    this.timeloggerService.workDayCommonOBS.subscribe( wdays => this.WDs = wdays );
    // console.log( "Date change.....to..." + this.currentDate.toDate() );
 
   }
@@ -134,7 +137,7 @@ export class DinamicCalendarComponent implements OnInit {
     return _.range(start, start + 42)
       .map((date: number): CalendarDate => {
         const d = moment(firstDayOfGrid).date(date);
-        return {
+        return { 
           today: this.isToday(d),
           selected: this.isSelected(d),
           mDate: d,
@@ -175,4 +178,22 @@ export class DinamicCalendarComponent implements OnInit {
 
   }
 
+  isContainTaskData( date ): boolean {      
+    let isContaindata = false;
+    if( this.WDs != null ){
+      for( let day of this.WDs  ){
+        if( moment(moment(date), 'day').isSame( day.day ) ) { isContaindata = true; }
+      }
+    return isContaindata;
+  }else return false;
+  }
+
+
+
+  /*isToday(date: moment.Moment): boolean {
+    return moment().isSame(moment(date), 'day');
+  }*/
+
 }
+
+
