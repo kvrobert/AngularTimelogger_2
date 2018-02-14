@@ -28,9 +28,9 @@
                    id="enabledDay" class="weekDateEnabled"
                    *ngIf="isSelectedMonth(day.mDate)" routerLink="/tasks" 
                    (mouseenter)= " setCurrentCommonDate( day.mDate.toDate() )">
-                   <span [ngStyle]="{'background-color': isContainTaskData( day.mDate.date() ) ? 'cyan' : '' }" >
-                      {{ day.mDate.date() }}
-                      <i class="material-icons">face</i>
+                   <span>         <!-- [ngStyle]="{'background-color': isContainTaskData( day.mDate.date() ) ? 'cyan' : '' }" -->
+                      {{ day.mDate.date() }}<br><br>
+                      <i *ngIf="isContainTaskData( day.mDate.date() )"  class="material-icons">work</i>
                     </span>
               </div>
             </td>

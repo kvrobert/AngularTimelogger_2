@@ -14,7 +14,7 @@ import { getLocaleTimeFormat } from '@angular/common/src/i18n/locale_data_api';
 })
 export class DisplaysTasksComponent implements OnInit {
 
-  private taskTableHeader: string[] = ['Task id', 'Year', 'Month', 'Day', 'Comment', 'Sart Time', 'End Time', 'Edit', 'Delete'];
+  private taskTableHeader: string[] = ['Task id', 'Year', 'Month', 'Day', 'Comment', 'Sart Time', 'End Time', '', ' '];
 
   tasks: Task[];
   tasksAPI: TaskApis[];
