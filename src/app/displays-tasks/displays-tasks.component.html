@@ -10,8 +10,8 @@
       <tbody>
       <tr *ngFor="let task of this.tasks" >
         <td *ngIf="task != this.selectedTask" >{{task.taskId}}</td>
-        <td *ngIf="task == this.selectedTask" > <input type="text"  [(ngModel)]="task.taskId"  > </td>
-        
+        <td *ngIf="task == this.selectedTask" > <input type="text"  [(ngModel)]="task.taskId"  required pattern="^LT-[0-9]{4}$" #taskId="ngModel"> </td>
+        <div [hidden]="taskId.hasError('pattern')" > ID error... </div>
         <td *ngIf="task != this.selectedTask" >{{task.year}}</td>
         <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.year" ></td>
 
@@ -53,9 +53,9 @@
       </tbody>
     </table>
       <button *ngIf="!this.isNewRowAddingVisible" id="createTask" (click)="this.addNewTaskRow()" >Add new Task</button>
-      <button *ngIf="this.isNewRowAddingVisible" id="createTask" (click)="this.saveNewTask()" >Save Task</button>
+      <button *ngIf="this.isNewRowAddingVisible" id="createTask" (click)="this.saveNewTask()"routerLink=""  >Save Task</button>
       <button *ngIf="!this.isNewRowAddingVisible" routerLink="" id="createTask">Close</button>
-      <button *ngIf="this.isNewRowAddingVisible"  (click)="this.cancelNewTask()"  >Cancel</button>
+      <button *ngIf="this.isNewRowAddingVisible"  (click)="this.cancelNewTask()" routerLink=""  >Cancel</button>
     </div>
   </section>
 

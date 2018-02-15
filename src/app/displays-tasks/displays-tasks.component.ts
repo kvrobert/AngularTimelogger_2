@@ -130,7 +130,7 @@ this.selectedTask = task;
     this.timeloggerService.deleteTask( task )
        .subscribe(
          result => console.log( "The response: " + JSON.stringify( result ) ),
-         error => alert( "Something went wrong by TaskDelete..." + JSON.stringify( error ),
+         error => alert( "Something went wrong by TaskDelete..." + JSON.stringify( error )),
          () => alert("Task deletion complete")
         );
 
