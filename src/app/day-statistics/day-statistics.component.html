@@ -16,9 +16,14 @@
     </div>
     <div class="statisticsInfo">
       <h4>Extra Minuten</h4>
-      <span>{{  getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
+      <span [ngStyle]=" { 'color': getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
+             currentCommonDateDay.getMonth() + 1,
+             currentCommonDateDay.getDate() ).extraMinPerDay < 0 ? 'red' : 'white'  } " >
+
+        {{  getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
                                         currentCommonDateDay.getMonth() + 1,
-                                        currentCommonDateDay.getDate() ).extraMinPerDay }}</span>
+                                        currentCommonDateDay.getDate() ).extraMinPerDay }}
+      </span>
     </div>
   </section>
 
