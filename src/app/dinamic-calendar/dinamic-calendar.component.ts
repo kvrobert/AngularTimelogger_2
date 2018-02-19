@@ -42,6 +42,7 @@ export class DinamicCalendarComponent implements OnInit {
     this.timeloggerService.workDayApiCommonOBS.subscribe( wdApiOBS => this.WDApi = wdApiOBS );
     this.timeloggerService.workMonthCommonOBS.subscribe( wmApiOBS => this.WMApi = wmApiOBS );
     this.timeloggerService.workDayCommonOBS.subscribe( wdays => this.WDs = wdays );
+    this.changedWDate();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

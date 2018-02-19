@@ -10,14 +10,10 @@
         <tr *ngFor="let wm of workMonths">
            <td>{{wm.year}}</td>
            <td>{{wm.month}}</td>
-            <td><a href="">×</a></td>
-
-            <td><a href="">×</a></td>
-          </tr>
+            <td  ><a class="editWonth" routerLink="" (click)="this.deleteWorkMonth( wm )" ><i class="material-icons">delete</i></a></td>
 
           </tbody>
         </table>
-        <button id="createMonth">New Month</button>
         <button routerLink="" id="createMonth">Close</button>
       </div>
 

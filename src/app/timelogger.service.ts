@@ -56,20 +56,26 @@ export class TimeloggerService {
 
   ];*/
 
-  /* URLs for the APIs */
+    /** URLs for the APIs */
    host: string = 'http://localhost:8080/timelogger'
    urlGETWokmonths = this.host + '/workmonths/';
    urlGETWokDays = this.urlGETWokmonths;
    urlGetTasks = this.urlGETWokmonths;
    urlAddTask = this.host + "/workmonths/workdays/tasks/start";
    urlDeleteTask = this.host + "/workmonths/workdays/tasks/delete";
-   urlModifiTask= this.host + "/workmonths/workdays/tasks/modify"
+   urlModifiTask= this.host + "/workmonths/workdays/tasks/modify";
+   urlDeleteWorkMonth = this.host + "/delworkmonth";
+   urlDeleteWorkDay = this.host + "/delworkDay";
+
+    /** Header option */
    httpOption = { headers: new HttpHeaders( { 'Content-Type': 'application/json' } ) };
 
+  /** Properties */
    private WDApi: WDayApis[];
    private WMApi: WMontApis[];
    private workDaysCommon: WorkDay[];
    private delTask: DelTask;
+
    /** Synchronisiert the date between the component */
    private currentCommonDateSource = new BehaviorSubject< Date >( moment().toDate() );
    currentCommonDateObs = this.currentCommonDateSource.asObservable();
@@ -87,6 +93,7 @@ export class TimeloggerService {
   constructor( private messageService: MessageService,
                 private  http: HttpClient ) { }
 
+  /** Common data behaivor methodes */
   changeCurrentCommonDate( chanchedDate: Date ){
     this.currentCommonDateSource.next( chanchedDate );
   }
@@ -97,7 +104,7 @@ export class TimeloggerService {
   changedworkMonthCommon( changedWMApi: WMontApis[] ){
     this.workMonthCommonSource.next( changedWMApi );
   }
-  changedWorkDayCommon( changedWD: WorkDay[] ){ 
+  changedWorkDayCommon( changedWD: WorkDay[] ){
     this.workDaysCommonSource.next( changedWD );
   }
 
@@ -135,7 +142,14 @@ export class TimeloggerService {
                                     task.startTime );
 
     console.log( "Delete task..." + this.delTask.taskId + ":" + this.delTask.startTime );
-    return this.http.put( this.urlDeleteTask, this.delTask, this.httpOption );    
+    return this.http.put( this.urlDeleteTask, this.delTask, this.httpOption );
+  }
+
+  deleteWorkMonth( wm: WorkMonth ) {
+    return this.http.put( this.urlDeleteWorkMonth, wm, this.httpOption );
+  }
+  deleteWorkDay( wd: WorkDay ){
+    return this.http.put( this.urlDeleteWorkDay, wd, this.httpOption );
   }
 
   modifyTask( taskForModify: TaskForModifi  ){

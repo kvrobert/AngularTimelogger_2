@@ -12,7 +12,7 @@ import {forEach} from "@angular/router/src/utils/collection";
 })
 export class DisplaysMonthComponent implements OnInit {
 
-  private tableHeader: string[] = ['Year', 'Month', 'Edit', 'Delete'];
+  private tableHeader: string[] = ['Year', 'Month', 'Delete'];
   workMonths: WorkMonth[] = [];
   workMonthsAPI: WMontApis[] = [];
   year: string;
@@ -42,23 +42,14 @@ export class DisplaysMonthComponent implements OnInit {
       } );
     console.log('GetMonth method from displayMonth');
 
-  };
-                                                                             /* convertApiWorkMonthTOWorkMonth(): void {
-                                                                                //this.workMonths = new WorkMonth()[];
-                                                                                console.log( this.workMonthsAPI.length );
+  }
 
-                                                                                for ( var i = 0; i < this.workMonthsAPI.length; i++ ){
-                                                                                  console.log( "Enter into the loop" );
-                                                                                     // this.workMonths[i].year = + moment( this.workMonthsAPI[i].monthDate, "YYYY" );   // + -> convert string to number
-                                                                                     // this.workMonths[i].month = + moment( this.workMonthsAPI[i].monthDate, "MM" );
-                                                                                  var date = Date.parse( this.workMonthsAPI[i].monthDate );
-                                                                                  var y = +moment( date).format('YYYY');
-                                                                                  var m = +moment( this.workMonthsAPI[i].monthDate ).format('MM');
-                                                                                  console.log( typeof y );
-                                                                                  console.log( typeof m );
-                                                                                  this.workMonths[i].setYear( y );
-                                                                                  this.workMonths[i].setMonth( m );
-                                                                                };
-                                                                              };*/
-
+  deleteWorkMonth( wm: WorkMonth ){
+    this.timeloggerService.deleteWorkMonth( wm )
+      .subscribe(
+        result => console.log("Az eredmény: " + JSON.stringify( result ) ),
+        error => alert( error ),
+        () => alert( "Deleting Workmonth " + wm.year + "-" + wm.month + "is complet" )
+      );
+  }
 }

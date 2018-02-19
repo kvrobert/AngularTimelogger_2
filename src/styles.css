@@ -12,3 +12,6 @@ html, body
   font-family: "realway_light";
   background: #ebebeb;
 }
+.material-icons{
+  color: gray;
+}
