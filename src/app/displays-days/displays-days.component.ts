@@ -12,7 +12,7 @@ import {WDayApis} from "../Interfaces/w-day-apis";
 })
 export class DisplaysDaysComponent implements OnInit {
 
-  private workDayTableHeader: string[] = ['Year', 'Month', 'Day', 'Required work minutes', 'Edit', 'Delete'];
+  private workDayTableHeader: string[] = ['Year', 'Month', 'Day', 'Required work minutes', 'Delete'];
   workDays: WorkDay[];
   WDayApis: WDayApis[];
 
@@ -45,6 +45,14 @@ export class DisplaysDaysComponent implements OnInit {
         } )
         this.timeloggerService.changedWorkDayCommon( this.workDays );
       }
-    )
+    );
   }
+
+  deleteWorkday( wd: WorkDay ) {
+    this.timeloggerService.deleteWorkDay( wd )
+      .subscribe(
+        result => console.log("Az eredmény: " + JSON.stringify( result ) ),
+        error => alert( error ),
+        () => alert( "Deleting WorkDay " + wd.year + "-" + wd.month + "-" + wd.day + " is complet" )
+      );
 }
