@@ -1,63 +1,69 @@
 <div id="displayTasks" class="popUpWindow">
+  
+    <section>
+      <form  #loginForm="ngForm">
+        <h2><a href="">Tasks</a></h2>
+        <div class="taskTable">
+          <table>
+          <thead>
+          <th *ngFor="let taskTableHead of taskTableHeader" >{{taskTableHead}}</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let task of this.tasks" >
+            <td *ngIf="task != this.selectedTask" >{{task.taskId}}</td>
+            <td *ngIf="task == this.selectedTask" > <input type="text"  [(ngModel)]="task.taskId"
+                                                          required pattern="^LT-[0-9]{4}$|^\d{4}$" #taskIdInput="ngModel" name="id"> 
+                                                          <span class="errormessage" [hidden]="taskIdInput.valid" > ERRRROR  </span>
+                                                        </td>
+                                                          
 
-  <section>
-    <h2><a href="">Tasks</a></h2>
-    <div class="taskTable">
-      <table>
-      <thead>
-      <th *ngFor="let taskTableHead of taskTableHeader" >{{taskTableHead}}</th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let task of this.tasks" >
-        <td *ngIf="task != this.selectedTask" >{{task.taskId}}</td>
-        <td *ngIf="task == this.selectedTask" > <input type="text"  [(ngModel)]="task.taskId"
-                                                       required pattern="^LT-[0-9]{4}$|^\d{4}$" #taskIdInput="ngModel"> </td>
+            <td *ngIf="task != this.selectedTask" >{{task.year}}</td>
+            <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.year" name="year"></td>
 
-        <td *ngIf="task != this.selectedTask" >{{task.year}}</td>
-        <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.year" ></td>
+            <td *ngIf="task != this.selectedTask" >{{task.month}}</td>
+            <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.month" name="month"></td>
 
-        <td *ngIf="task != this.selectedTask" >{{task.month}}</td>
-        <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.month" ></td>
+            <td *ngIf="task != this.selectedTask" >{{task.day}}</td>
+            <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.day" name="day"></td>
 
-        <td *ngIf="task != this.selectedTask" >{{task.day}}</td>
-        <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.day" ></td>
+            <td *ngIf="task != this.selectedTask" >{{task.comment}}</td>
+            <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.comment" name="comment"></td>
 
-        <td *ngIf="task != this.selectedTask" >{{task.comment}}</td>
-        <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.comment" ></td>
+            <td *ngIf="task != this.selectedTask" >{{task.startTime}}</td>
+            <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.startTime"  name="sTime"></td>
 
-        <td *ngIf="task != this.selectedTask" >{{task.startTime}}</td>
-        <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.startTime"  ></td>
+            <td *ngIf="task != this.selectedTask" >{{task.endTime}}</td>
+            <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.endTime"  name="eTime"></td>
 
-        <td *ngIf="task != this.selectedTask" >{{task.endTime}}</td>
-        <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.endTime"  ></td>
+            <td *ngIf="task != this.selectedTask" class="editTask" (click)="this.editRow( task )" ><i class="material-icons">mode_edit</i></td>
+            <td *ngIf="task != this.selectedTask" class="editTask" (click)="this.deleteRow( task )"><i class="material-icons">delete</i></td>
 
-        <td *ngIf="task != this.selectedTask" class="editTask" (click)="this.editRow( task )" ><i class="material-icons">mode_edit</i></td>
-        <td *ngIf="task != this.selectedTask" class="editTask" (click)="this.deleteRow( task )"><i class="material-icons">delete</i></td>
-
-        <td *ngIf="task == this.selectedTask"
-        class="editTask"   (click)="this.saveRowEdition( task )"><i class="material-icons">done</i></td>
-        <td *ngIf="task == this.selectedTask"
-            class="editTask" (click)="this.editCancel( task )"><i class="material-icons">clear</i></td>
+            <td *ngIf="task == this.selectedTask"
+            class="editTask"   (click)="this.saveRowEdition( task )"><i class="material-icons">done</i></td>
+            <td *ngIf="task == this.selectedTask"
+                class="editTask" (click)="this.editCancel( task )"><i class="material-icons">clear</i></td>
 
 
-      </tr>
-      <tr *ngIf="this.isNewRowAddingVisible" >
-        <td> <input type="text" [(ngModel)]="this.newRow.taskId" > </td>
-        <td> <input type="text" [(ngModel)]="this.newRow.year" > </td>
-        <td> <input type="text" [(ngModel)]="this.newRow.month" > </td>
-        <td> <input type="text" [(ngModel)]="this.newRow.day" > </td>
-        <td> <input type="text" [(ngModel)]="this.newRow.comment" > </td>
-        <td> <input type="text" [(ngModel)]="this.newRow.startTime" > </td>
-        <td> <input type="text" [(ngModel)]="this.newRow.endTime" > </td>
+          </tr>
+          <tr *ngIf="this.isNewRowAddingVisible" >
+            <td> <input type="text" [(ngModel)]="this.newRow.taskId" > </td>
+            <td> <input type="text" [(ngModel)]="this.newRow.year" > </td>
+            <td> <input type="text" [(ngModel)]="this.newRow.month" > </td>
+            <td> <input type="text" [(ngModel)]="this.newRow.day" > </td>
+            <td> <input type="text" [(ngModel)]="this.newRow.comment" > </td>
+            <td> <input type="text" [(ngModel)]="this.newRow.startTime" > </td>
+            <td> <input type="text" [(ngModel)]="this.newRow.endTime" > </td>
 
-      </tr>
-      </tbody>
-    </table>
-      <button *ngIf="!this.isNewRowAddingVisible" id="createTask" (click)="this.addNewTaskRow()" >Add new Task</button>
-      <button *ngIf="this.isNewRowAddingVisible" id="createTask" (click)="this.saveNewTask()"routerLink=""  >Save Task</button>
-      <button *ngIf="!this.isNewRowAddingVisible" routerLink="" id="createTask">Close</button>
-      <button *ngIf="this.isNewRowAddingVisible"  (click)="this.cancelNewTask()" routerLink=""  >Cancel</button>
-    </div>
+          </tr>
+          </tbody>
+        </table>
+          <button *ngIf="!this.isNewRowAddingVisible" id="createTask" (click)="this.addNewTaskRow()" >Add new Task</button>
+          <button *ngIf="this.isNewRowAddingVisible" id="createTask" (click)="this.saveNewTask()"routerLink=""  >Save Task</button>
+          <button *ngIf="!this.isNewRowAddingVisible" routerLink="" id="createTask">Close</button>
+          <button *ngIf="this.isNewRowAddingVisible"  (click)="this.cancelNewTask()" routerLink=""  >Cancel</button>
+          
+        </div>
+      </form>    
   </section>
-
+  
 </div>

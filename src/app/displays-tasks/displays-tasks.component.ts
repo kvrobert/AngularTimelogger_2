@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Directive, forwardRef,Attribute,OnChanges, SimpleChanges,Input } from '@angular/core';
 import { Task } from '../Entity/task';
 import {TimeloggerService} from "../timelogger.service";
 import {TaskApis} from "../Interfaces/task-apis";

@@ -55,4 +55,5 @@ export class DisplaysDaysComponent implements OnInit {
         error => alert( error ),
         () => alert( "Deleting WorkDay " + wd.year + "-" + wd.month + "-" + wd.day + " is complet" )
       );
+  }
 }
