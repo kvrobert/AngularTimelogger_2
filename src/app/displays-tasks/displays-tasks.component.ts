@@ -7,6 +7,7 @@ import {TaskForModifi} from "../Entity/task-for-modifi";
 import { getLocaleTimeFormat } from '@angular/common/src/i18n/locale_data_api';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DinamicCalendarComponent} from "../dinamic-calendar/dinamic-calendar.component";
+import { NG_VALIDATORS,Validator,Validators,AbstractControl,ValidatorFn } from '@angular/forms';
 
 
 @Component({

@@ -10,7 +10,8 @@
       <tbody>
       <tr *ngFor="let task of this.tasks" >
         <td *ngIf="task != this.selectedTask" >{{task.taskId}}</td>
-        <td *ngIf="task == this.selectedTask" > <input type="text"  [(ngModel)]="task.taskId"  required pattern="^LT-[0-9]{4}$" #taskId="ngModel"> </td>
+        <td *ngIf="task == this.selectedTask" > <input type="text"  [(ngModel)]="task.taskId"
+                                                       required pattern="^LT-[0-9]{4}$|^\d{4}$" #taskIdInput="ngModel"> </td>
 
         <td *ngIf="task != this.selectedTask" >{{task.year}}</td>
         <td *ngIf="task == this.selectedTask" ><input type="text" [(ngModel)]="task.year" ></td>
