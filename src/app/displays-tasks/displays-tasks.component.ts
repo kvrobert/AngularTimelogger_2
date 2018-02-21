@@ -67,10 +67,8 @@ export class DisplaysTasksComponent implements OnInit {
 
   editRow(task: Task): void {
     console.log("EdiRow..." + task.taskId +";"+ task.startTime);
-this.selectedTask = task;
+  this.selectedTask = task;
 
-                                                                      /*this.editableTaskId = task.taskId;
-                                                                      this.editableTaskStartTime = task.startTime; */
     /**  Add the old task data */
     this.modifiedTask.year = task.year;
     this.modifiedTask.month = task.month;
@@ -103,11 +101,9 @@ this.selectedTask = task;
       result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
       error => alert( "Sonething went wrong..." + JSON.stringify( error ) ),
       () => alert( "Task modified complet." )
-      )
-
+      );
   }
 
-  // TODO
   addNewTaskRow(): void   {
     this.newRow = new Task( this.currentCommonDate.getFullYear(),
                             this.currentCommonDate.getMonth() + 1,
@@ -149,23 +145,23 @@ this.selectedTask = task;
 
   convertDigits( number: number[] ): string {
     let hour;
-    let minute
-    if( number[0] < 10 ){
+    let minute;
+    if ( number[0] < 10 ){
       hour = this.toTwoDigits( number[0] )
     }
-    else{
+    else {
       hour = number[0];
     }
     if( number[1] < 10 ){
       minute = this.toTwoDigits( number[1] )
     }
-    else{
+    else {
       minute = number[1];
     }
     return "" + hour + ":" + minute;
   }
 
-  toTwoDigits(digit: number ): string{
+  toTwoDigits(digit: number ): string {
     return "0" + digit;
   }
 
