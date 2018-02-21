@@ -14,7 +14,7 @@
             <td *ngIf="task == this.selectedTask" > <input type="text"  [(ngModel)]="task.taskId"
                                                           required pattern="^LT-[0-9]{4}$|^\d{4}$" #taskIdInput="ngModel" name="id">
                                                           <span class="errormessage" [hidden]="taskIdInput.valid" >
-                                                            Use this format: LT-XXXX or XXXX.
+                                                            LT-XXXX or XXXX.
                                                           </span>
                                                         </td>
 
@@ -29,14 +29,14 @@
             <td *ngIf="task != this.selectedTask" >{{task.month}}</td>
             <td *ngIf="task == this.selectedTask" ><input type="text" required pattern="^[1-9]{1}$|^1[0-2]{1}$" [(ngModel)]="task.month" #taskMonth="ngModel" name="month">
                                                           <span class="errormessage" [hidden]="taskMonth.valid" >
-                                                            Enter a valid month number.
+                                                            Invalid month.
                                                           </span>
             </td>
 
             <td *ngIf="task != this.selectedTask" >{{task.day}}</td>
             <td *ngIf="task == this.selectedTask" ><input type="text" required pattern="^[0-2]{1}[0-9]{1}$|^[0-9]{1}$|^3[0-1]{1}$" [(ngModel)]="task.day" #taskDay="ngModel" name="day">
                                                           <span class="errormessage" [hidden]="taskDay.valid" >
-                                                            Enter a valid month number.
+                                                              Invalid day.{{ taskDay.valid }}
                                                           </span>
             </td>
 
