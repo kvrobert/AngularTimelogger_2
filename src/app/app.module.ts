@@ -17,6 +17,10 @@ import {MessageService} from "./message.service";
 import { MessageComponent } from './message/message.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import {AuthService} from "./auth-service";
+import { CallbackComponent } from './callback/callback.component';
 
 
 @NgModule({
@@ -29,7 +33,10 @@ import {FormsModule} from "@angular/forms";
     DisplaysMonthComponent,
     DisplaysDaysComponent,
     DisplaysTasksComponent,
-    MessageComponent
+    MessageComponent,
+    LoginComponent,
+    ProfileComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,8 @@ import {FormsModule} from "@angular/forms";
     FormsModule
   ],
   providers: [ TimeloggerService,
-              MessageService
+              MessageService,
+              AuthService
               ],
   bootstrap: [AppComponent]
 })

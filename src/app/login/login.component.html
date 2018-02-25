@@ -1,0 +1,28 @@
+<div class="popUpWindow" >
+  <section>
+    <div id="container">
+      <header>
+        <h1><a href="" >Login</a></h1>
+        <nav>
+          <ul>
+
+            <li> <a routerLink="" id="linkLogin">Home</a></li>
+            <li> <a routerLink="" id="linkLogin" *ngIf="!auth.isAuthenticated()" (click)="auth.login()">Log In</a></li>
+            <li> <a routerLink="" id="linkLogin" *ngIf="auth.isAuthenticated()" (click)="auth.logout()">Log Out</a></li>
+            <li> <a routerLink="" id="linkLogin"  (click)="status()">Status</a></li>
+
+
+          </ul>
+        </nav>
+      </header>
+      <div id="main">
+
+
+      </div>
+    </div>
+
+  </section>
+</div>
+
+
+
