@@ -13,9 +13,7 @@
             <td *ngIf="task != this.selectedTask" >{{task.taskId}}</td>
             <td *ngIf="task == this.selectedTask" > <input type="text"  [(ngModel)]="task.taskId"
                                                           required pattern="^LT-[0-9]{4}$|^\d{4}$" #taskIdInput="ngModel" name="id">
-                                                          <span class="errormessage" [hidden]="taskIdInput.valid" >
-                                                            Use this format: LT-XXXX or XXXX.
-                                                          </span>
+                                                          <span class="errormessage" [hidden]="taskIdInput.valid" >Format: LT-XXXX or XXXX.</span>
                                                         </td>
 
 
@@ -47,9 +45,7 @@
             <td *ngIf="task == this.selectedTask" ><input type="text"
                                                           required pattern="^[0-9]{1}[0-9]{2}$|^[0-2]{1}[0-9]{1}[0-9]{2}$|^[0-9]{1}:[0-9]{2}$|^[0-2]{1}[0-9]{1}:[0-9]{2}$"
                                                           [(ngModel)]="task.startTime" #taskSTime="ngModel"  name="sTime">
-                                                          <span class="errormessage" [hidden]="taskSTime.valid" >
-                                                            Enter in format HH:MM.
-                                                          </span>
+                                                          <span class="errormessage" [hidden]="taskSTime.valid" >Enter in format HH:MM.</span>
             </td>
 
             <td *ngIf="task != this.selectedTask" >{{task.endTime}}</td>
@@ -75,7 +71,7 @@
             <td> <input type="text" [(ngModel)]="this.newRow.taskId" name="inputId" #inputTaskId="ngModel"
                         required pattern="^LT-[0-9]{4}$|^\d{4}$">
                                                           <span class="errormessage" [hidden]="inputTaskId.valid" >
-                                                            Use this format: LT-XXXX or XXXX.
+                                                            Format: LT-XXXX or XXXX.
                                                           </span>
             </td>
             <td> <input type="text" [(ngModel)]="this.newRow.year" name="inputYear" #inputTaskYear="ngModel"

@@ -1,3 +1,25 @@
-<p>
-  profile works!
-</p>
+<div class="popUpWindow" >
+  <section>
+    <div id="container">
+      <header>
+        <h1><a href="" >Profile</a></h1>
+
+
+      </header>
+      <div id="main">
+        <img src="{{profile?.picture}}" class="avatar" alt="avatar">
+        <div>
+          <label><i class="glyphicon glyphicon-user"></i> Nickname</label>
+          <h3 class="nickname">{{ profile?.nickname }}</h3>
+        </div>
+        <pre class="full-profile">{{ profile | json }}</pre>
+
+        <button routerLink="" id="createDay">back</button>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+
+

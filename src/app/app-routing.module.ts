@@ -5,6 +5,7 @@ import {DisplaysDaysComponent} from "./displays-days/displays-days.component";
 import {DisplaysTasksComponent} from "./displays-tasks/displays-tasks.component";
 import {LoginComponent} from "./login/login.component";
 import {CallbackComponent} from "./callback/callback.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'tasks', component: DisplaysTasksComponent },
   { path: 'login', component: LoginComponent },
   { path: 'callback', component: CallbackComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 

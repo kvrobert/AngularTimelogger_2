@@ -21,7 +21,15 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import {AuthService} from "./auth-service";
 import { CallbackComponent } from './callback/callback.component';
+import {AuthConfig, AuthHttp} from "angular2-jwt";
+import {Http, RequestOptions} from "@angular/http";
 
+
+  export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+    return new AuthHttp(new AuthConfig({
+      tokenGetter: (() => localStorage.getItem('access_token'))
+    }), http, options);
+  }
 
 @NgModule({
   declarations: [
@@ -47,7 +55,12 @@ import { CallbackComponent } from './callback/callback.component';
   ],
   providers: [ TimeloggerService,
               MessageService,
-              AuthService
+              AuthService,
+                  {
+                    provide: AuthHttp,
+                    useFactory: authHttpServiceFactory,
+                    deps: [Http, RequestOptions]
+                  }
               ],
   bootstrap: [AppComponent]
 })
