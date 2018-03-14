@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../auth-service";
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,16 +8,14 @@ import {AuthService} from "../auth-service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor( private auth: AuthService) { }
+  constructor( public auth: AuthService ) { }
 
   ngOnInit() {
   }
-  callLogin() {
-    this.auth.login();
-  }
+
 
   status(){
-    console.log( "Az authentikációm: " + this.auth.isAuthenticated() );
+    console.log( "Az authentikációm: " + this.auth.isAuthenticated());
   }
 
 }

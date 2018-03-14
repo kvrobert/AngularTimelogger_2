@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthService} from "./auth-service";
+import {AuthService} from "./auth/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,8 @@ import {AuthService} from "./auth-service";
 })
 export class AppComponent {
 
-  constructor( public auth: AuthService) {
-
-    auth.handleAuthentication();
+  constructor( public auth: AuthService ) {
+    auth.handleAuthentication();    // Handle the authentication
+    auth.scheduleRenewal();         // Handle the token refreshing
   }
 }

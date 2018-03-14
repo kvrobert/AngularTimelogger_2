@@ -91,7 +91,7 @@ export class TimeloggerService {
 
 
   constructor( private messageService: MessageService,
-                private  http: HttpClient ) { }
+                private  http: HttpClient ) { }  // HttpClient helyett..tuti nem lesz jó...
 
   /** Common data behaivor methodes */
   changeCurrentCommonDate( chanchedDate: Date ){

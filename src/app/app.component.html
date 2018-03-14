@@ -3,10 +3,11 @@
           <h1><a href="" >Time Logger</a></h1>
           <nav>
             <ul>
-              <li> <a routerLink="/workmonths" id="linkListMonths">Displays the Months</a></li>
-              <li> <a routerLink="/workdays" id="linkListDays">Displays the Days</a></li>
-              <li> <a routerLink="/login" id="linkLogin">Login</a></li>
-              <li> <a routerLink="/profile" id="linkProfile">Profile</a></li>
+              <li> <a *ngIf="auth.isAuthenticated()" routerLink="/workmonths" id="linkListMonths">Displays the Months</a></li>
+              <li> <a *ngIf="auth.isAuthenticated()" routerLink="/workdays" id="linkListDays">Displays the Days</a></li>
+              <li> <a *ngIf="!auth.isAuthenticated()" routerLink="/login" id="linkLogin">Log In</a></li>
+              <li> <a *ngIf="auth.isAuthenticated()" routerLink="login" id="linkLogout">Log Out</a></li>
+              <li> <a *ngIf="auth.isAuthenticated()" routerLink="/profile" id="linkProfile">Profile</a></li>
             </ul>
           </nav>
         </header>

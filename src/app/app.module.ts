@@ -19,17 +19,20 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import {AuthService} from "./auth-service";
 import { CallbackComponent } from './callback/callback.component';
 import {AuthConfig, AuthHttp} from "angular2-jwt";
 import {Http, RequestOptions} from "@angular/http";
+import {AuthService} from "./auth/auth.service";
+import { AuthGuardService } from './auth/auth-guard.service';
+import {ScopeGuardService} from "./auth/scope-guard.service";
 
 
-  export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-    return new AuthHttp(new AuthConfig({
-      tokenGetter: (() => localStorage.getItem('access_token'))
-    }), http, options);
-  }
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenGetter: (() => localStorage.getItem('access_token')),
+    globalHeaders: [{'Content-Type': 'application/json'}],
+  }), http, options);
+}
 
 @NgModule({
   declarations: [
@@ -53,14 +56,16 @@ import {Http, RequestOptions} from "@angular/http";
     HttpClientModule,
     FormsModule
   ],
-  providers: [ TimeloggerService,
-              MessageService,
-              AuthService,
-                  {
-                    provide: AuthHttp,
-                    useFactory: authHttpServiceFactory,
-                    deps: [Http, RequestOptions]
-                  }
+  providers: [  TimeloggerService,
+                MessageService,
+                AuthService,
+                AuthGuardService,
+                ScopeGuardService,  //Még nem használom
+                {
+                  provide: AuthHttp,
+                  useFactory: authHttpServiceFactory,
+                  deps: [Http, RequestOptions]
+                },
               ],
   bootstrap: [AppComponent]
 })
