@@ -99,7 +99,7 @@ export class DisplaysTasksComponent implements OnInit {
     this.timeloggerService.modifyTask( this.modifiedTask )
     .subscribe(
       result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
-      error => alert( "Sonething went wrong..." + JSON.stringify( error ) ),
+      error => alert( "Sonething went wrong..." + JSON.stringify( error.error ) ),
       () => alert( "Task modified complet." )
       );
   }
@@ -117,7 +117,7 @@ export class DisplaysTasksComponent implements OnInit {
     this.timeloggerService.addNewTask( this.newRow )
       .subscribe(
           result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
-          error => alert( "Sonething went wrong..." + JSON.stringify( error ) ),
+          error => alert( "Sonething went wrong..." + JSON.stringify( error.error ) ),
         () => alert("The new Task added completed.")
       );
    // this.router.navigateByUrl("");
@@ -128,7 +128,7 @@ export class DisplaysTasksComponent implements OnInit {
     this.timeloggerService.deleteTask( task )
        .subscribe(
          result => console.log( "The response: " + JSON.stringify( result ) ),
-         error => alert( "Something went wrong by TaskDelete..." + JSON.stringify( error )),
+         error => alert( "Something went wrong by TaskDelete..." + JSON.stringify( error.error )),
          () => alert("Task deletion complete")
         );
 

@@ -10,16 +10,17 @@ export class AuthService {
 
   userProfile: any;
   refreshSubscription: any;
-  requestedScopes: string = 'openid profile valami:ize';
+  requestedScopes: string = 'openid profile email valami:ize';       //'openid profile valami:ize';
 
     auth0 = new auth0.WebAuth ({
     clientID: AUTH_CONFIG.clientID,
     domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
+    //responseType: 'token access_token', false
     audience: AUTH_CONFIG.audience,
     redirectUri: AUTH_CONFIG.callbackURL,
     scope: this.requestedScopes,
-     leeway: 30    // Egyenlőre nem kell....a frissítés miatt majd....
+      leeway: 30    // Egyenlőre nem kell....a frissítés miatt majd....
   });
 
   constructor(public router: Router) { }
@@ -52,6 +53,7 @@ export class AuthService {
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
         self.userProfile = profile;
+        console.log(JSON.stringify(profile));
       }
       cb(err, profile);
     });
@@ -139,6 +141,10 @@ export class AuthService {
   public unscheduleRenewal() {
     if (!this.refreshSubscription) return;
     this.refreshSubscription.unsubscribe();
+  }
+
+  public getAccesToken(): string {
+    return localStorage.getItem('access_token');
   }
 }
 

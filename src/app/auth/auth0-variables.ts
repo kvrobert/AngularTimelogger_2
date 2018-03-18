@@ -12,6 +12,6 @@ export const AUTH_CONFIG: AuthConfig = {
   domain: 'prosperobert.eu.auth0.com',
   callbackURL: 'http://localhost:4200/callback',
   silentCallbackURL: 'http://localhost:3001/silent',
-  audience: '',
-  apiUrl: 'http://localhost:8080'
+  audience: '', // ha megaom az audience-t 'timeloggoer.com' ...akkor egy JWT accesstokent kapok vissza
+  apiUrl: 'http://localhost:8080'   //audience nélkül csak egy olyan access tokent amivel lekérhezem az infót URL user info-ról
 };

@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'workdays', component: DisplaysDaysComponent, canActivate: [ AuthGuard ] }, // ez ki lesz véve...és csak a paraméteres lesz
   { path: 'workdays/year/day', component: DisplaysDaysComponent, canActivate: [ AuthGuard ] },
   { path: 'tasks', component: DisplaysTasksComponent, canActivate: [ AuthGuard ] },
-  { path: 'login', component: LoginComponent },
+ // { path: 'login', component: LoginComponent },
   { path: 'callback', component: CallbackComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [ AuthGuard ] },
   { path: '', redirectTo: '', pathMatch: 'full' }

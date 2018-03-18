@@ -5,8 +5,9 @@
             <ul>
               <li> <a *ngIf="auth.isAuthenticated()" routerLink="/workmonths" id="linkListMonths">Displays the Months</a></li>
               <li> <a *ngIf="auth.isAuthenticated()" routerLink="/workdays" id="linkListDays">Displays the Days</a></li>
-              <li> <a *ngIf="!auth.isAuthenticated()" routerLink="/login" id="linkLogin">Log In</a></li>
-              <li> <a *ngIf="auth.isAuthenticated()" routerLink="login" id="linkLogout">Log Out</a></li>
+              <li> <a *ngIf="!auth.isAuthenticated()" (click)="auth.login()" id="linkLogin">Log In</a></li>
+              <li> <a *ngIf="!auth.isAuthenticated()"  id="linkLogin">Sing In</a></li>
+              <li> <a *ngIf="auth.isAuthenticated()" (click)="auth.logout()" id="linkLogout">Log Out</a></li>
               <li> <a *ngIf="auth.isAuthenticated()" routerLink="/profile" id="linkProfile">Profile</a></li>
             </ul>
           </nav>

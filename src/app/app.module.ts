@@ -25,14 +25,22 @@ import {Http, RequestOptions} from "@angular/http";
 import {AuthService} from "./auth/auth.service";
 import { AuthGuardService } from './auth/auth-guard.service';
 import {ScopeGuardService} from "./auth/scope-guard.service";
+import { JwtModule } from '@auth0/angular-jwt';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/token-interceptor';
 
 
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+/*export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
     tokenGetter: (() => localStorage.getItem('access_token')),
     globalHeaders: [{'Content-Type': 'application/json'}],
   }), http, options);
-}
+} */
+
+/* export function tokenGetter() {
+  console.log(localStorage.getItem('access_token'));
+  return localStorage.getItem('access_token');
+} */
 
 @NgModule({
   declarations: [
@@ -53,19 +61,26 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     BrowserModule,
     AppRoutingModule,       // RouterModule hiányzik...azt is hozzá kell adni, hogy kezelni tudja a routokat.
     RouterModule,
+    FormsModule,
     HttpClientModule,
-    FormsModule
+    /*JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,         // Ez lenne a auth-JWT cucca, aminek hozzá kéne fűznie a Headerhez a tokent..de nem..
+        whitelistedDomains: ['http://localhost:4200/', 'http://localhost:8080/'],
+        blacklistedRoutes: []
+      }
+    })*/
   ],
   providers: [  TimeloggerService,
                 MessageService,
                 AuthService,
                 AuthGuardService,
                 ScopeGuardService,  //Még nem használom
-                {
-                  provide: AuthHttp,
-                  useFactory: authHttpServiceFactory,
-                  deps: [Http, RequestOptions]
-                },
+                     {
+                        provide: HTTP_INTERCEPTORS,
+                        useClass: TokenInterceptor,
+                        multi: true
+                      }
               ],
   bootstrap: [AppComponent]
 })
