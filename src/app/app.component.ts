@@ -13,7 +13,8 @@ export class AppComponent {
     auth.handleAuthentication();    // Handle the authentication
     auth.scheduleRenewal();         // Handle the token refreshing
 
-    if ( !auth.isAuthenticated() ) {
+    if ( !auth.isAuthenticated() )
+      auth.logout();
       auth.login();
     }
   }
