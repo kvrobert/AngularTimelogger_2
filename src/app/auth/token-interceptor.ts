@@ -14,14 +14,11 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    /*request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.auth.getAccesToken()}`
-      }
-    });
-    return next.handle(request);*/  //duplikált kérés megy..
-    const acces_token = this.auth.getAccesToken();
+    if( !this.auth.isAuthenticated() ) {
+      () => this.auth.login(), 5000;
+    }
 
+    const acces_token = this.auth.getAccesToken();
     if ( acces_token ) {
       const clonedReq = request.clone({
         headers: request.headers.set("Authorization", "Bearer " + acces_token)
