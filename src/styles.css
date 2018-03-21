@@ -1,4 +1,11 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* for the spinner*/
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #8baad9;
+}
+
+
 @font-face
 {
   font-family: "realway_light";
