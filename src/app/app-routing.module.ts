@@ -7,6 +7,7 @@ import {LoginComponent} from "./login/login.component";
 import {CallbackComponent} from "./callback/callback.component";
 import {ProfileComponent} from "./profile/profile.component";
 import { ScopeGuardService as AuthGuard } from './auth/scope-guard.service';
+import {MatSpinnerComponent} from "./mat-spinner/mat-spinner.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
  // { path: 'login', component: LoginComponent },
   { path: 'callback', component: CallbackComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [ AuthGuard ] },
+  { path: 'spinner', component: MatSpinnerComponent, canActivate: [ AuthGuard ] },
   { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 

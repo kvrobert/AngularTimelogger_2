@@ -28,6 +28,8 @@ import {ScopeGuardService} from "./auth/scope-guard.service";
 import { JwtModule } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token-interceptor';
+import {MatProgressSpinnerModule } from '@angular/material';
+import { MatSpinnerComponent } from './mat-spinner/mat-spinner.component';
 
 
 /*export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -55,7 +57,9 @@ import { TokenInterceptor } from './auth/token-interceptor';
     MessageComponent,
     LoginComponent,
     ProfileComponent,
-    CallbackComponent
+    CallbackComponent,
+    MatSpinnerComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -63,6 +67,8 @@ import { TokenInterceptor } from './auth/token-interceptor';
     RouterModule,
     FormsModule,
     HttpClientModule,
+    MatProgressSpinnerModule
+
     /*JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,         // Ez lenne a auth-JWT cucca, aminek hozzá kéne fűznie a Headerhez a tokent..de nem..

@@ -14,8 +14,6 @@ export class AppComponent {
     auth.scheduleRenewal();         // Handle the token refreshing
 
     if ( !auth.isAuthenticated() )
-      auth.logout();
       auth.login();
     }
   }
-}
