@@ -32,18 +32,6 @@ import {MatProgressSpinnerModule } from '@angular/material';
 import { MatSpinnerComponent } from './mat-spinner/mat-spinner.component';
 
 
-/*export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig({
-    tokenGetter: (() => localStorage.getItem('access_token')),
-    globalHeaders: [{'Content-Type': 'application/json'}],
-  }), http, options);
-} */
-
-/* export function tokenGetter() {
-  console.log(localStorage.getItem('access_token'));
-  return localStorage.getItem('access_token');
-} */
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,15 +55,8 @@ import { MatSpinnerComponent } from './mat-spinner/mat-spinner.component';
     RouterModule,
     FormsModule,
     HttpClientModule,
-    MatProgressSpinnerModule
-
-    /*JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,         // Ez lenne a auth-JWT cucca, aminek hozzá kéne fűznie a Headerhez a tokent..de nem..
-        whitelistedDomains: ['http://localhost:4200/', 'http://localhost:8080/'],
-        blacklistedRoutes: []
-      }
-    })*/
+    MatProgressSpinnerModule,
+        
   ],
   providers: [  TimeloggerService,
                 MessageService,

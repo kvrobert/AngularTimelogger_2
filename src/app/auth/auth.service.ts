@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';  // itt csillaggal mindent be kell importálni, mert hibás lesz
 
+
 @Injectable()
 export class AuthService {
 
@@ -85,6 +86,12 @@ export class AuthService {
     this.unscheduleRenewal();
     // Go back to the home route
     this.router.navigate(['/']);
+  }
+
+  public checkAuthentication(){
+    setTimeout(() => {
+      this.isAuthenticated();
+    }, 2000);
   }
 
   public isAuthenticated(): boolean {

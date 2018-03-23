@@ -24,39 +24,6 @@ import {tap} from "rxjs/operators";
 @Injectable()
 export class TimeloggerService {
 
- /* workMonths: WorkMonth[] = [
-    {year: 2017, month: 10},
-    {year: 2017, month: 11},
-    {year: 2017, month: 12},
-    {year: 2017, month: 9},
-  ]; */
-
- /* workDays: WorkDay[] = [
-    {year: 2017, month: 10, day: 11, requiredHour: 450},
-    {year: 2017, month: 10, day: 12, requiredHour: 450},
-    {year: 2017, month: 10, day: 13, requiredHour: 450},
-    {year: 2017, month: 10, day: 14, requiredHour: 450},
-    {year: 2017, month: 10, day: 15, requiredHour: 450},
-    {year: 2017, month: 10, day: 16, requiredHour: 450},
-    {year: 2017, month: 10, day: 17, requiredHour: 450},
-    {year: 2017, month: 10, day: 18, requiredHour: 450},
-  ]; */
-/*
-  tasks: Task[] = [
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'},
-    { year: 2017, month: 10, day: 11, taskId: 'LT-4545', comment: 'Valami kommentelés', startTime: '10:15', endTime: '11:45'}
-
-  ];*/
-
     /** URLs for the APIs */
    host: string = 'http://localhost:8080/timelogger'
    urlGETWokmonths = this.host + '/workmonths/';
@@ -76,6 +43,8 @@ export class TimeloggerService {
    private WMApi: WMontApis[];
    private workDaysCommon: WorkDay[];
    private delTask: DelTask;
+
+   private isLoading: boolean = false;
 
    /** Synchronisiert the date between the component */
    private currentCommonDateSource = new BehaviorSubject< Date >( moment().toDate() );
@@ -161,5 +130,15 @@ export class TimeloggerService {
     this.messageService.addLogMessage('Timelogger: ' + message);
   }
 
+  loadingStart(): void {
+    this.isLoading = true;
+  }
+
+  loadingEnd(): void{
+    this.isLoading = false;
+  }
+  getLoadingStatus(): boolean {
+    return this.isLoading;
+  }
 
 }
