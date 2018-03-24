@@ -44,8 +44,6 @@ export class TimeloggerService {
    private workDaysCommon: WorkDay[];
    private delTask: DelTask;
 
-   private isLoading: boolean = false;
-
    /** Synchronisiert the date between the component */
    private currentCommonDateSource = new BehaviorSubject< Date >( moment().toDate() );
    currentCommonDateObs = this.currentCommonDateSource.asObservable();
@@ -130,15 +128,6 @@ export class TimeloggerService {
     this.messageService.addLogMessage('Timelogger: ' + message);
   }
 
-  loadingStart(): void {
-    this.isLoading = true;
-  }
 
-  loadingEnd(): void{
-    this.isLoading = false;
-  }
-  getLoadingStatus(): boolean {
-    return this.isLoading;
-  }
 
 }

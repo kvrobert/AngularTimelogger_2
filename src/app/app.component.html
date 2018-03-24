@@ -17,7 +17,7 @@
           <app-dinamic-calendar class="center"></app-dinamic-calendar>
           <app-day-statistics class="right"></app-day-statistics>
           <router-outlet></router-outlet>
-          <app-mat-spinner *ngIf="timelogger.getLoadingStatus()" ></app-mat-spinner>
+          <app-mat-spinner *ngIf="loader.isLoadingStatus()"></app-mat-spinner>
         </div>
       </div>
 

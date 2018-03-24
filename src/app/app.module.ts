@@ -30,6 +30,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token-interceptor';
 import {MatProgressSpinnerModule } from '@angular/material';
 import { MatSpinnerComponent } from './mat-spinner/mat-spinner.component';
+import {LoaderService} from "./Services/loader.service";
 
 
 @NgModule({
@@ -56,12 +57,13 @@ import { MatSpinnerComponent } from './mat-spinner/mat-spinner.component';
     FormsModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-        
+
   ],
   providers: [  TimeloggerService,
                 MessageService,
                 AuthService,
                 AuthGuardService,
+                LoaderService,
                 ScopeGuardService,  //Még nem használom
                      {
                         provide: HTTP_INTERCEPTORS,
