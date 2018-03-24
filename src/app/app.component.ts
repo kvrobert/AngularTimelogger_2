@@ -12,12 +12,13 @@ import {LoaderService} from "./Services/loader.service";
 })
 export class AppComponent{
 
-  constructor( public auth: AuthService, public loader: LoaderService  ) {
+  constructor( private auth: AuthService, public loader: LoaderService  ) {
     auth.handleAuthentication();    // Handle the authentication
     auth.scheduleRenewal();         // Handle the token refreshing
 
-    }
-
-
-
+    setTimeout( () => {
+      if( !auth.isAuthenticated() )
+        { auth.login() }
+    },2000 );
   }
+}
