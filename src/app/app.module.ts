@@ -20,17 +20,17 @@ import {FormsModule} from "@angular/forms";
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CallbackComponent } from './callback/callback.component';
-import {AuthConfig, AuthHttp} from "angular2-jwt";
-import {Http, RequestOptions} from "@angular/http";
 import {AuthService} from "./auth/auth.service";
 import { AuthGuardService } from './auth/auth-guard.service';
 import {ScopeGuardService} from "./auth/scope-guard.service";
-import { JwtModule } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token-interceptor';
 import {MatProgressSpinnerModule } from '@angular/material';
 import { MatSpinnerComponent } from './mat-spinner/mat-spinner.component';
 import {LoaderService} from "./Services/loader.service";
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -48,15 +48,18 @@ import {LoaderService} from "./Services/loader.service";
     ProfileComponent,
     CallbackComponent,
     MatSpinnerComponent,
+    SnackBarComponent,
 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,       // RouterModule hiányzik...azt is hozzá kell adni, hogy kezelni tudja a routokat.
+    AppRoutingModule,
     RouterModule,
     FormsModule,
     HttpClientModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule
 
   ],
   providers: [  TimeloggerService,
@@ -64,12 +67,12 @@ import {LoaderService} from "./Services/loader.service";
                 AuthService,
                 AuthGuardService,
                 LoaderService,
-                ScopeGuardService,  //Még nem használom
+                ScopeGuardService,  // I'm not using yet...
                      {
                         provide: HTTP_INTERCEPTORS,
                         useClass: TokenInterceptor,
                         multi: true
-                      }
+                      },
               ],
   bootstrap: [AppComponent]
 })

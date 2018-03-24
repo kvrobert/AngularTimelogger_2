@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
+import {MatSnackBar} from "@angular/material";
 
 @Injectable()
 export class MessageService {
 
-  message: string[];
-  log: string[];
-  error: string[];
+  infoMessage: string[];
+  errorMessage: string[];
 
-  constructor() { }
+  constructor( public popUpBar: MatSnackBar ) { }
 
   addMessage( message: string ): void {
-    this.message.push( message );
-  };
+    this.infoMessage.push( message );
+  }
 
-  addLogMessage( logMessage: string ): void {
-    this.log.push( logMessage );
-  };
-
+  openPopUp(message: string, action: string) {
+    this.popUpBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 
 
 // To Do.....add message fetter, cleaner...

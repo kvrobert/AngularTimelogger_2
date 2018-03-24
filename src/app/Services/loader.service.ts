@@ -8,11 +8,15 @@ export class LoaderService {
   constructor() { }
 
   loadingStart(): void {
+    console.log("STRAT Loading..service");
     this.isLoading = true;
   }
 
-  loadingEnd(): void{
-    this.isLoading = false;
+  loadingStop(): void {
+    console.log("STOP Loading..service");
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 300);
   }
   isLoadingStatus(): boolean {
     return this.isLoading;

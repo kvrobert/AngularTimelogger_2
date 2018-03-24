@@ -15,6 +15,7 @@ export class AppComponent{
   constructor( public auth: AuthService, public loader: LoaderService  ) {
     auth.handleAuthentication();    // Handle the authentication
     auth.scheduleRenewal();         // Handle the token refreshing
+
     }
 
 

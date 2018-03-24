@@ -8,6 +8,7 @@ import { getLocaleTimeFormat } from '@angular/common/src/i18n/locale_data_api';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DinamicCalendarComponent} from "../dinamic-calendar/dinamic-calendar.component";
 import { NG_VALIDATORS,Validator,Validators,AbstractControl,ValidatorFn } from '@angular/forms';
+import {LoaderService} from "../Services/loader.service";
 
 
 @Component({
@@ -36,7 +37,8 @@ export class DisplaysTasksComponent implements OnInit {
   private isNewRowAddingVisible  = false;
 
 
-  constructor( private  timeloggerService: TimeloggerService ) { }
+  constructor( private  timeloggerService: TimeloggerService,
+               private loader: LoaderService) { }
 
   ngOnInit() {
     this.timeloggerService.currentCommonDateObs.subscribe( curCommDate => this.currentCommonDate = curCommDate );
@@ -53,6 +55,7 @@ export class DisplaysTasksComponent implements OnInit {
    this.timeloggerService.getTasksAPIs( year, month, day )
      .subscribe(
        ( taskAPI: TaskApis[] ) => {
+         this.loader.loadingStart();
          this.tasks = taskAPI.map( task => {
              let id = task.taskID.toString();
              let comment = task.comment.toString();
@@ -61,13 +64,15 @@ export class DisplaysTasksComponent implements OnInit {
              return new Task( year, month, day, id, comment, startTime, endTIme );
            }
          );
-       }
+       },
+       error => this.loader.loadingStop(),
+       () => this.loader.loadingStop()
      );
   }
 
   editRow(task: Task): void {
     console.log("EdiRow..." + task.taskId +";"+ task.startTime);
-  this.selectedTask = task;
+    this.selectedTask = task;
 
     /**  Add the old task data */
     this.modifiedTask.year = task.year;
@@ -78,12 +83,9 @@ export class DisplaysTasksComponent implements OnInit {
   }
 
   editCancel( task: Task ): void {
-                                                                   /* this.editableTaskId = "";
-                                                                    this.editableTaskStartTime = ""; */
     this.selectedTask = null;
   }
 
-  // TODO
   saveRowEdition( tsk: Task ): void {
     this.selectedTask = null;
 
@@ -94,13 +96,11 @@ export class DisplaysTasksComponent implements OnInit {
 
     console.log( "The new task Data.." + tsk.taskId + ":"  + tsk.day + "-" + tsk.startTime +"-" + tsk.endTime );
 
-                                                                    /*  this.editableTaskId = "";
-                                                                      this.editableTaskStartTime = ""; */
     this.timeloggerService.modifyTask( this.modifiedTask )
     .subscribe(
-      result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
-      error => alert( "Sonething went wrong..." + JSON.stringify( error.error ) ),
-      () => alert( "Task modified complet." )
+      result => this.result( result ),
+      error => this.error( error ),
+      () => this.finally()
       );
   }
 
@@ -116,21 +116,21 @@ export class DisplaysTasksComponent implements OnInit {
     this.isNewRowAddingVisible = false;
     this.timeloggerService.addNewTask( this.newRow )
       .subscribe(
-          result => console.log( 'Az eredmény: ' + JSON.stringify( result ) ),
-          error => alert( "Sonething went wrong..." + JSON.stringify( error.error ) ),
-        () => alert("The new Task added completed.")
+        result => this.result( result ),
+        error => this.error( error ),
+        () => this.finally()
       );
-   // this.router.navigateByUrl("");
+
 
   }
 
   deleteRow( task: Task ): void {
     this.timeloggerService.deleteTask( task )
        .subscribe(
-         result => console.log( "The response: " + JSON.stringify( result ) ),
-         error => alert( "Something went wrong by TaskDelete..." + JSON.stringify( error.error )),
-         () => alert("Task deletion complete")
-        );
+         result => this.result( result ),
+         error => this.error( error ),
+         () => this.finally()
+       );
 
 
 
@@ -163,6 +163,21 @@ export class DisplaysTasksComponent implements OnInit {
 
   toTwoDigits(digit: number ): string {
     return "0" + digit;
+  }
+
+  result( responsType: any ) {
+      console.log( 'The response: ' + JSON.stringify( responsType ) );
+      this.loader.loadingStart();
+  }
+
+  error( responsType: any ) {
+    console.log( 'The response: ' + JSON.stringify( responsType ) );
+    this.loader.loadingStop();
+  }
+
+  finally() {
+    console.log( 'The function complet. ' );
+    this.loader.loadingStop();
   }
 
 }

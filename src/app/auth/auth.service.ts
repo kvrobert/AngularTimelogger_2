@@ -88,9 +88,9 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  public checkAuthentication(){
+  public checkAuthentication() {
     setTimeout(() => {
-      this.isAuthenticated();
+    this.isAuthenticated();
     }, 2000);
   }
 

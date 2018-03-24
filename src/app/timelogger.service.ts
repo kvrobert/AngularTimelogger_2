@@ -18,7 +18,10 @@ import {Time} from "@angular/common";
 import {Moment} from "moment";
 import {DelTask} from "./Entity/del-task";
 import { TaskForModifi } from './Entity/task-for-modifi';
-import {tap} from "rxjs/operators";
+import {catchError, tap} from "rxjs/operators";
+import {LoaderService} from "./Services/loader.service";
+import {findNativeParent} from "@angular/core/src/render3/node_manipulation";
+import {_finally} from "rxjs/operator/finally";
 
 
 @Injectable()
@@ -58,8 +61,9 @@ export class TimeloggerService {
    workDayCommonOBS = this.workDaysCommonSource.asObservable();
 
 
-  constructor( private messageService: MessageService,
-               private  http: HttpClient ) { }  // HttpClient helyett..tuti nem lesz jó...
+  constructor( public messageService: MessageService,
+               private  http: HttpClient,
+               private loader: LoaderService,) { }
 
   /** Common data behaivor methodes */
   changeCurrentCommonDate( chanchedDate: Date ){
@@ -123,11 +127,5 @@ export class TimeloggerService {
   modifyTask( taskForModify: TaskForModifi  ){
     return this.http.put( this.urlModifiTask, taskForModify, this.httpOption );
   }
-
-  log(message: string):void {
-    this.messageService.addLogMessage('Timelogger: ' + message);
-  }
-
-
 
 }

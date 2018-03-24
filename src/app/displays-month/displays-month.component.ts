@@ -3,7 +3,8 @@ import {WorkMonth} from '../Entity/work-month';
 import {TimeloggerService} from "../timelogger.service";
 import {WMontApis} from "../Interfaces/w-mont-apis";
 import moment = require("moment");
-import {forEach} from "@angular/router/src/utils/collection";
+import {LoaderService} from "../Services/loader.service";
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-displays-month',
@@ -19,7 +20,9 @@ export class DisplaysMonthComponent implements OnInit {
   month: string;
   currentCommonDate: Date;
 
-  constructor(private timeloggerService: TimeloggerService) {
+  constructor(private timeloggerService: TimeloggerService,
+              private loader: LoaderService,
+              public popUpBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -30,7 +33,9 @@ export class DisplaysMonthComponent implements OnInit {
 
   getWMontApis( ): void {
     this.timeloggerService.getWMontApis()
-      .subscribe((apis: WMontApis[]) => { // lehetne így is.... apis => ...stb.
+      .subscribe(
+        ( apis: WMontApis[]) => { // lehetne így is.... apis => ...stb.
+        this.loader.loadingStart();
         this.workMonths = apis.map( workmonth => {  // Mappelni kell....és azt kapja vissza
 
             console.log("The date to parse: " + workmonth.monthDate);
@@ -39,7 +44,10 @@ export class DisplaysMonthComponent implements OnInit {
             var month = +moment( workmonth.monthDate ).format('MM');
             return new WorkMonth( year, month );
            });
-      } );
+        },
+        error => this.loader.loadingStop(),
+        () => this.loader.loadingStop()
+      );
     console.log('GetMonth method from displayMonth');
 
   }
@@ -49,7 +57,12 @@ export class DisplaysMonthComponent implements OnInit {
       .subscribe(
         result => console.log("Az eredmény: " + JSON.stringify( result ) ),
         error => alert( error ),
-        () => alert( "Deleting Workmonth " + wm.year + "-" + wm.month + "is complet" )
+        () => {
+          console.log("HÓNAP Trörlve");
+          this.popUpBar.open( wm.year+"."+wm.month + " WorkMonth deletion...",
+            "OK",
+            { duration: 2000, })
+        }
       );
   }
 }
