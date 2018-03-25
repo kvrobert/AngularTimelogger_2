@@ -31,6 +31,7 @@ import {LoaderService} from "./Services/loader.service";
 import { SnackBarComponent } from './snack-bar/snack-bar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     CallbackComponent,
     MatSpinnerComponent,
     SnackBarComponent,
+    ErrorComponent,
 
   ],
   imports: [

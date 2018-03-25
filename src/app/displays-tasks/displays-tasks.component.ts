@@ -100,7 +100,7 @@ export class DisplaysTasksComponent implements OnInit {
     .subscribe(
       result => this.result( result ),
       error => this.error( error ),
-      () => this.finally()
+      () => this.finally( tsk.year+tsk.month+tsk.day+ " Task modification...", "Ok" )
       );
   }
 
@@ -118,7 +118,7 @@ export class DisplaysTasksComponent implements OnInit {
       .subscribe(
         result => this.result( result ),
         error => this.error( error ),
-        () => this.finally()
+        () => this.finally( "Task saved" )
       );
 
 
@@ -129,7 +129,7 @@ export class DisplaysTasksComponent implements OnInit {
        .subscribe(
          result => this.result( result ),
          error => this.error( error ),
-         () => this.finally()
+         () => this.finally( task.year+task.month+task.day+" Task deletion...", "Ok" )
        );
 
 
@@ -175,9 +175,10 @@ export class DisplaysTasksComponent implements OnInit {
     this.loader.loadingStop();
   }
 
-  finally() {
-    console.log( 'The function complet. ' );
+  finally( message: string, action?: string ) {
+    console.log( message + " " + action );
     this.loader.loadingStop();
+    this.timeloggerService.messageService.openPopUp( message, action );
   }
 
 }

@@ -1,0 +1,68 @@
+@font-face
+{
+  font-family: "realway_light";
+  src: url(../../../node_modules/fonts-raleway/fonts/fonts-raleway/Raleway-Light.ttf); /* csshez képest relatív út... a ".." a kilépéshez kell*/
+}
+
+
+
+.errorPage{
+/*display: none;*/
+  background: rgba( 0, 0, 0, 0.6 );
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2000;
+
+}
+
+.errorPage > section
+{
+
+  background: white;
+  margin: 0 auto;
+  margin-top: 2%;
+  width: 95%;
+  max-width: 1000px;
+  height: 85%;
+  text-align: center;
+}
+.exit{
+  float: right;
+  margin-right: 30px;
+  font-weight: 700;
+  font-size: larger;
+}
+.exit:hover{
+  background-color: #cccccc;
+  cursor: pointer;
+}
+
+.h2error{
+  text-align: center;
+  font-family: 'Diplomata', cursive;
+  color: gray;
+}
+
+.h3error{
+  text-align: center;
+  font-family: 'Diplomata', cursive;
+  color: gray;
+}
+
+.h4error{
+  text-align: center;
+  font-family: 'Diplomata', cursive;
+  color: gray;
+}
+
+.travolta{
+  width: auto;
+  height: auto;
+
+}
+

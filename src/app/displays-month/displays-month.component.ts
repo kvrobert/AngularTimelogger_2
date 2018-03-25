@@ -59,9 +59,8 @@ export class DisplaysMonthComponent implements OnInit {
         error => alert( error ),
         () => {
           console.log("HÓNAP Trörlve");
-          this.popUpBar.open( wm.year+"."+wm.month + " WorkMonth deletion...",
-            "OK",
-            { duration: 2000, })
+          this.timeloggerService.messageService.openPopUp( wm.year + wm.month
+            + " Work Month deletion.... ", "Ok")
         }
       );
   }
