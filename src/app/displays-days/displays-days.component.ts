@@ -47,7 +47,10 @@ export class DisplaysDaysComponent implements OnInit {
           } )
           this.timeloggerService.changedWorkDayCommon( this.workDays );
         },
-        error => this.loader.loadingStop(),
+        error => {
+          this.loader.loadingStop();
+          this.timeloggerService.messageService.openPopUp( error.error );
+        },
         () => this.loader.loadingStop()
     );
   }

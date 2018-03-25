@@ -65,7 +65,7 @@ export class DisplaysTasksComponent implements OnInit {
            }
          );
        },
-       error => this.loader.loadingStop(),
+       error => this.error( error ),
        () => this.loader.loadingStop()
      );
   }
@@ -172,6 +172,7 @@ export class DisplaysTasksComponent implements OnInit {
 
   error( responsType: any ) {
     console.log( 'The response: ' + JSON.stringify( responsType ) );
+    this.timeloggerService.messageService.openPopUp(responsType.error);
     this.loader.loadingStop();
   }
 

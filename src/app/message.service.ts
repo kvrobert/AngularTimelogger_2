@@ -13,7 +13,7 @@ export class MessageService {
     this.infoMessage.push( message );
   }
 
-  openPopUp(message: string, action: string) {
+  openPopUp(message: string, action?: string) {
     this.popUpBar.open(message, action, {
       duration: 2000,
     });

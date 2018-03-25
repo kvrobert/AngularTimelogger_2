@@ -45,7 +45,10 @@ export class DisplaysMonthComponent implements OnInit {
             return new WorkMonth( year, month );
            });
         },
-        error => this.loader.loadingStop(),
+        error => {
+          this.loader.loadingStop();
+          this.timeloggerService.messageService.openPopUp( error.error );
+        },
         () => this.loader.loadingStop()
       );
     console.log('GetMonth method from displayMonth');

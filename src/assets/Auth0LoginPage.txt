@@ -1,0 +1,384 @@
+Egyszerű Auth0 Login page
+=================================================================================
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Sign In with Auth0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Brush-Script-MT" />
+</head>
+  <style>
+    body, html {
+      height: 100%;
+      background-color: #ebebeb;
+     font-family: cursive;
+    }
+
+    .login-container {
+       position: absolute;
+      height: 100%;
+      width: 100%
+      
+      
+    }
+
+    .login-box {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 15px;
+      background-color: #8baad9  ;
+      box-shadow: 0px 5px 5px #d8d8d8;
+      border-radius: 5px;
+      border-top: 1px solid #d8d8d8;
+      color: white;
+      width: 20%;
+      float: center;
+      margin-left: 40%;
+      margin-right: 40%;
+      
+    }
+
+    .login-header {
+      text-align: center;
+    }
+
+    .login-header img {
+      width: 100%;
+      height: 100%;
+    }
+    .form-control{
+       background-color: #d8d8d8  ;
+    }
+
+    #error-message {
+      display: none;
+    }
+  </style>
+<body>
+  <div class="login-container">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4 login-box">
+      <div class="login-header">
+        <img src="https://lh3.googleusercontent.com/RsC1sZF6OfEFo6dby-WN4NaYxBJHzyTP6Mjy9gcyyAKm-962LJGyDbwqKKd1gXaU1doofzrEx40ejey3bYWqzmBKNFZKfXL3DMz3kTptVTZwbRD2gxPNPJhygPPDrmNqcZe6rSCyKZQP6ULuftgLInTnfb0xRuMLOjpudJ77rPb_-mcFyoIKzzyGVZ2rlfMrgZDqefZJOufpxDxex_tK_0jlfWvVrGvQf7iOpntwagcwSI1bPEMlJ_SBscpGHvf51_l2gPC4OphOpBmWno0SH-gkO5twsK0aUwVwmXkSVLRjcw7kH4700srOPOE3qrOxtl61WImcjbr-uzTeYCbAr6Xb1TUqtgPKbu00yrT5zc6aaufYOmFry323h7KoA82fQMtm-rH69sjQ_7nuEKIDh65izV1X7EjYaLeWniAMsq9FHzQ401xCXvQZ4Zs2OnL7kCUgcxS0HghvLQncCwJiCGoL302Pj6Ud3nO7EZKpatN_ToOHnFGu0FGBVUCF9lIN_6QTjaBlBSavzUiZKuAU7_2IPC-9Vr826BPO7gEpVSehaHXheL-E0TJLKz8ke9nD=w1920-h918"/>
+        <h1>Welcome</h1>
+        <h4>by TimeLogger</h4>
+        <h5>PLEASE LOG IN</h5>
+      </div>
+      <div id="error-message" class="alert alert-danger"></div>
+      <form onsubmit="return false;" method="post">
+        <div class="form-group">
+         <label for="name">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="name">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Enter your password">
+        </div>
+        <button
+          type="submit"
+          id="btn-login"
+          class="btn btn-primary btn-block">
+            Log In
+        </button>
+        <button
+          type="button"
+          id="btn-signup"
+          class="btn btn-default btn-block">
+            Sign Up
+        </button>
+        <hr>
+        <button
+          type="button"
+          id="btn-google"
+          class="btn btn-default btn-danger btn-block">
+            Log In with Google
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!--[if IE 8]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/ie8/0.2.5/ie8.js"></script>
+  <![endif]-->
+
+  <!--[if lte IE 9]>
+  <script src="https://cdn.auth0.com/js/polyfills/1.0/base64.min.js"></script>
+  <script src="https://cdn.auth0.com/js/polyfills/1.0/es5-shim.min.js"></script>
+  <![endif]-->
+
+  <script src="https://cdn.auth0.com/js/auth0/9.2/auth0.min.js"></script>
+  <script src="https://cdn.auth0.com/js/polyfills/1.0/object-assign.min.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+
+      var config = JSON.parse(
+        decodeURIComponent(escape(window.atob('@@config@@')))
+      );
+
+      var params = Object.assign({
+        domain: config.auth0Domain,
+        clientID: config.clientID,
+        redirectUri: config.callbackURL,
+        responseType: 'code'
+      }, config.internalOptions);
+
+      var webAuth = new auth0.WebAuth(params);
+
+      var databaseConnection = 'Username-Password-Authentication';
+
+      function login(e) {
+        e.preventDefault();
+        var username = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        webAuth.login({
+          realm: databaseConnection,
+          username: username,
+          password: password
+        }, function(err) {
+          if (err) displayError(err);
+        });
+      }
+
+      function signup() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        webAuth.redirect.signupAndLogin({
+          connection: databaseConnection,
+          email: email,
+          password: password
+        }, function(err) {
+          if (err) displayError(err);
+        });
+      }
+
+      function loginWithGoogle() {
+        webAuth.authorize({
+          connection: 'google-oauth2'
+        }, function(err) {
+          if (err) displayError(err);
+        });
+      }
+
+      function displayError(err) {
+        var errorMessage = document.getElementById('error-message');
+        errorMessage.innerHTML = err.description;
+        errorMessage.style.display = 'block';
+      }
+
+      document.getElementById('btn-login').addEventListener('click', login);
+      document.getElementById('btn-google').addEventListener('click', loginWithGoogle);
+      document.getElementById('btn-signup').addEventListener('click', signup);
+    });
+  </script>
+</body>
+</html>
+
+===============================================================================
+Jelszó ellenőrző login page.....
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Sign In with Auth0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Brush-Script-MT" />
+</head>
+  <style>
+    body, html {
+      height: 100%;
+      background-color: #ebebeb;
+     font-family: cursive;
+    }
+
+    .login-container {
+       position: absolute;
+      height: 100%;
+      width: 100%
+      
+      
+    }
+
+    .login-box {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 15px;
+      background-color: #8baad9  ;
+      box-shadow: 0px 5px 5px #d8d8d8;
+      border-radius: 5px;
+      border-top: 1px solid #d8d8d8;
+      color: white;
+      width: 20%;
+      float: center;
+      margin-left: 40%;
+      margin-right: 40%;
+      
+    }
+
+    .login-header {
+      text-align: center;
+    }
+
+    .login-header img {
+      width: 100%;
+      height: 100%;
+    }
+    .form-control{
+       background-color: #d8d8d8  ;
+    }
+
+    #error-message {
+      display: none;
+    }
+  </style>
+<body>
+  <div class="login-container">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4 login-box">
+      <div class="login-header">
+        <img src="https://lh3.googleusercontent.com/RsC1sZF6OfEFo6dby-WN4NaYxBJHzyTP6Mjy9gcyyAKm-962LJGyDbwqKKd1gXaU1doofzrEx40ejey3bYWqzmBKNFZKfXL3DMz3kTptVTZwbRD2gxPNPJhygPPDrmNqcZe6rSCyKZQP6ULuftgLInTnfb0xRuMLOjpudJ77rPb_-mcFyoIKzzyGVZ2rlfMrgZDqefZJOufpxDxex_tK_0jlfWvVrGvQf7iOpntwagcwSI1bPEMlJ_SBscpGHvf51_l2gPC4OphOpBmWno0SH-gkO5twsK0aUwVwmXkSVLRjcw7kH4700srOPOE3qrOxtl61WImcjbr-uzTeYCbAr6Xb1TUqtgPKbu00yrT5zc6aaufYOmFry323h7KoA82fQMtm-rH69sjQ_7nuEKIDh65izV1X7EjYaLeWniAMsq9FHzQ401xCXvQZ4Zs2OnL7kCUgcxS0HghvLQncCwJiCGoL302Pj6Ud3nO7EZKpatN_ToOHnFGu0FGBVUCF9lIN_6QTjaBlBSavzUiZKuAU7_2IPC-9Vr826BPO7gEpVSehaHXheL-E0TJLKz8ke9nD=w1920-h918"/>
+        <h1>Welcome</h1>
+        <h4>by TimeLogger</h4>
+        <h5>PLEASE LOG IN</h5>
+      </div>
+      <div id="error-message" class="alert alert-danger"></div>
+      <form onsubmit="return false;" method="post">
+        <div class="form-group">
+         <label for="name">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="name">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Enter your password">
+        </div>
+        <button
+          type="submit"
+          id="btn-login"
+          class="btn btn-primary btn-block">
+            Log In
+        </button>
+        <button
+          type="button"
+          id="btn-signup"
+          class="btn btn-default btn-block">
+            Sign Up
+        </button>
+        <hr>
+        <button
+          type="button"
+          id="btn-google"
+          class="btn btn-default btn-danger btn-block">
+            Log In with Google
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!--[if IE 8]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/ie8/0.2.5/ie8.js"></script>
+  <![endif]-->
+
+  <!--[if lte IE 9]>
+  <script src="https://cdn.auth0.com/js/polyfills/1.0/base64.min.js"></script>
+  <script src="https://cdn.auth0.com/js/polyfills/1.0/es5-shim.min.js"></script>
+  <![endif]-->
+
+  <script src="https://cdn.auth0.com/js/auth0/9.2/auth0.min.js"></script>
+  <script src="https://cdn.auth0.com/js/polyfills/1.0/object-assign.min.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+
+      var config = JSON.parse(
+        decodeURIComponent(escape(window.atob('@@config@@')))
+      );
+
+      var params = Object.assign({
+        domain: config.auth0Domain,
+        clientID: config.clientID,
+        redirectUri: config.callbackURL,
+        responseType: 'code'
+      }, config.internalOptions);
+
+      var webAuth = new auth0.WebAuth(params);
+
+      var databaseConnection = 'Username-Password-Authentication';
+
+      function login(e) {
+        e.preventDefault();
+        var username = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        webAuth.login({
+          realm: databaseConnection,
+          username: username,
+          password: password
+        }, function(err) {
+          if (err) displayError(err);
+        });
+      }
+
+      function signup() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var mediumRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+        if( mediumRegex.test(password) ){
+         
+          webAuth.redirect.signupAndLogin({
+            connection: databaseConnection,
+            email: email,
+            password: password
+          }, function(err) {
+            if (err) displayError(err);
+          });
+        }else{
+          var error = {description : "Your password must contain min. 8 characters, upper and lowercase characters and number."};
+          displayError(error);
+        }   
+      }
+
+      function loginWithGoogle() {
+        webAuth.authorize({
+          connection: 'google-oauth2'
+        }, function(err) {
+          if (err) displayError(err);
+        });
+      }
+
+      function displayError(err) {
+        if( err.description == "Wrong email or password." ){
+            err.description = "Wrong email or password. If you want to create an new user, use the Sign Up."
+        }
+        var errorMessage = document.getElementById('error-message');
+        errorMessage.innerHTML = err.description;
+        errorMessage.style.display = 'block';
+      }      
+
+      document.getElementById('btn-login').addEventListener('click', login);
+      document.getElementById('btn-google').addEventListener('click', loginWithGoogle);
+      document.getElementById('btn-signup').addEventListener('click', signup);
+    });
+  </script>
+</body>
+</html>
+
