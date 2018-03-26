@@ -3,20 +3,20 @@
   <section id="dayStatistics" class="sideBoxes">
     <h2>Day Statistics</h2>
     <div class="statisticsInfo">
-      <h4>Required Minuten</h4>
-      <span>{{  getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
+      <h4>Required minutes</h4>
+      <span matTooltip="The required minutes on the actual day">{{  getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
                                         currentCommonDateDay.getMonth() + 1,
                                         currentCommonDateDay.getDate() ).requiredMinPerDay  }}</span>
     </div>
     <div class="statisticsInfo">
-      <h4>Summary Minuten</h4>
-      <span>{{  getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
+      <h4>Summary minutes</h4>
+      <span matTooltip="The summary minutes of the actual day" >{{  getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
                                         currentCommonDateDay.getMonth() + 1,
                                         currentCommonDateDay.getDate() ).sumPerDay  }}</span>
     </div>
     <div class="statisticsInfo">
-      <h4>Extra Minuten</h4>
-      <span [ngStyle]=" { 'color': getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
+      <h4>Extra minutes</h4>
+      <span matTooltip="The extra minutes on the actual day. If it is red, you don't have enough minutes." [ngStyle]=" { 'color': getCurrentDayStatistic( currentCommonDateDay.getFullYear(),
              currentCommonDateDay.getMonth() + 1,
              currentCommonDateDay.getDate() ).extraMinPerDay < 0 ? 'red' : 'white'  } " >
 

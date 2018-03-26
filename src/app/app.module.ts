@@ -32,6 +32,8 @@ import { SnackBarComponent } from './snack-bar/snack-bar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ErrorComponent } from './error/error.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -61,7 +63,9 @@ import { ErrorComponent } from './error/error.component';
     HttpClientModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTooltipModule,
+    MatButtonModule
 
   ],
   providers: [  TimeloggerService,

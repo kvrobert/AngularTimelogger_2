@@ -30,7 +30,7 @@
                    (mouseenter)= " setCurrentCommonDate( day.mDate.toDate() )">
                    <span>         <!-- [ngStyle]="{'background-color': isContainTaskData( day.mDate.date() ) ? 'cyan' : '' }" -->
                       {{ day.mDate.date() }}<br><br>
-                      <i *ngIf="isContainTaskData( day.mDate.date() )"  class="material-icons">work</i>
+                      <i *ngIf="isContainTaskData( day.mDate.date() )"  matTooltip="Existing tasks" class="material-icons">work</i>
                     </span>
               </div>
             </td>

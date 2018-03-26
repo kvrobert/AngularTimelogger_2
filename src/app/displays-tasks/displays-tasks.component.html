@@ -57,13 +57,13 @@
                                                           </span>
             </td>
 
-            <td *ngIf="task != this.selectedTask" class="editTask" (click)="this.editRow( task )" ><i class="material-icons">mode_edit</i></td>
-            <td *ngIf="task != this.selectedTask" class="editTask" (click)="this.deleteRow( task )"><i class="material-icons">delete</i></td>
+            <td *ngIf="task != this.selectedTask" class="editTask" (click)="this.editRow( task )" matTooltip="Edit the task." ><i class="material-icons">mode_edit</i></td>
+            <td *ngIf="task != this.selectedTask" class="editTask" (click)="this.deleteRow( task )" matTooltip="Delete the task."><i class="material-icons">delete</i></td>
 
             <td *ngIf="task == this.selectedTask"
-            class="editTask"   (click)="this.saveRowEdition( task )"><i class="material-icons">done</i></td>
+            class="editTask"   (click)="this.saveRowEdition( task )"><i class="material-icons" matTooltip="Save the task.">done</i></td>
             <td *ngIf="task == this.selectedTask"
-                class="editTask" (click)="this.editCancel( task )"><i class="material-icons">clear</i></td>
+                class="editTask" (click)="this.editCancel( task )"><i class="material-icons" matTooltip="Exit form editing.">clear</i></td>
 
 
           </tr>
@@ -109,10 +109,10 @@
           </tr>
           </tbody>
         </table>
-          <button *ngIf="!this.isNewRowAddingVisible" id="createTask" (click)="this.addNewTaskRow()" >Add new Task</button>
-          <button *ngIf="this.isNewRowAddingVisible" id="createTask" (click)="this.saveNewTask()"routerLink=""  >Save Task</button>
-          <button *ngIf="!this.isNewRowAddingVisible" routerLink="" id="createTask">Close</button>
-          <button *ngIf="this.isNewRowAddingVisible"  (click)="this.cancelNewTask()" routerLink=""  >Cancel</button>
+          <button *ngIf="!this.isNewRowAddingVisible && !this.isRowEditing" id="createTask" (click)="this.addNewTaskRow()" matTooltip="Add new task" mat-raised-button >Add new Task</button>
+          <button *ngIf="this.isNewRowAddingVisible" id="createTask" (click)="this.saveNewTask()"routerLink=""  matTooltip="Save the task" mat-raised-button >Save Task</button>
+          <button *ngIf="!this.isNewRowAddingVisible && !this.isRowEditing " routerLink="" id="createTask" mat-raised-button >Close</button>
+          <button *ngIf="this.isNewRowAddingVisible"  (click)="this.cancelNewTask()" routerLink=""   mat-raised-button >Cancel</button>
 
         </div>
       </form>

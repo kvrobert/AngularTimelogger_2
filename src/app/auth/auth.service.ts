@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';  // itt csillaggal mindent be kell importálni, mert hibás lesz
+import { Profile } from 'selenium-webdriver/firefox';
 
 
 @Injectable()
@@ -44,7 +45,7 @@ export class AuthService {
     });
   }
 
-  public getProfile(cb): void {
+  public getProfile(cb): boolean {
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
       throw new Error('Access token must exist to fetch profile');
@@ -54,10 +55,11 @@ export class AuthService {
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
         self.userProfile = profile;
-        console.log(JSON.stringify(profile));
+        console.log(JSON.stringify("A profile from service...." + profile.email_verified));
       }
       cb(err, profile);
     });
+    return this.userProfile.email_verified;
   }
 
   private setSession(authResult): void {

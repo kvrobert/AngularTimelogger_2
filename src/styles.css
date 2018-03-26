@@ -23,3 +23,21 @@ html, body
 .material-icons{
   color: gray;
 }
+
+.red-snackbar{
+  background-color: #FF5252 !important;
+  color:white !important;
+
+}
+
+.green-snackbar{
+  background-color: #4CAF50 !important;
+  color:#282f90 !important;
+}
+button{
+  border-radius: 10px !important;
+}
+
+button:hover{
+  background-color: rgb(211, 205, 205);  
+}

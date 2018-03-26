@@ -13,11 +13,11 @@
           <td>{{workDay.month}}</td>
           <td>{{workDay.day}}</td>
           <td>{{workDay.requiredHour}}</td>
-          <td> <a class="editDay" routerLink="" (click)="this.deleteWorkday( workDay )" ><i class="material-icons">delete</i></a> </td>
+          <td> <a class="editDay" routerLink="" (click)="this.deleteWorkday( workDay )" ><i class="material-icons" matTooltip="Delete Work Day!">delete</i></a> </td>
         </tr>
         </tbody>
       </table>
-      <button routerLink="" id="createDay">Close</button>
+      <button routerLink="" id="createDay"  mat-raised-button >Close</button>
     </div>
 
   </section>

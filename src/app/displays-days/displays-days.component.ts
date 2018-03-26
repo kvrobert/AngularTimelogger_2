@@ -49,7 +49,7 @@ export class DisplaysDaysComponent implements OnInit {
         },
         error => {
           this.loader.loadingStop();
-          this.timeloggerService.messageService.openPopUp( error.error );
+          this.timeloggerService.messageService.openPopUp( error.error, "", ['red-snackbar'] );
         },
         () => this.loader.loadingStop()
     );
@@ -59,10 +59,16 @@ export class DisplaysDaysComponent implements OnInit {
     this.timeloggerService.deleteWorkDay( wd )
       .subscribe(
         result => console.log("Az eredmény: " + JSON.stringify( result ) ),
-        error => alert( error ),
-       // () => alert( "Deleting WorkDay " + wd.year + "-" + wd.month + "-" + wd.day + " is complet" )
-        () => this.timeloggerService.messageService.openPopUp( wd.year + wd.month + wd.day
-          + " Work Day deletion.... ", "Ok")
+        error => {
+          this.loader.loadingStop();
+          this.timeloggerService.messageService.openPopUp( error.error, "", ['red-snackbar'] );
+        },
+        () => {
+          console.log("HÓNAP Trörlve");
+          this.timeloggerService.messageService.openPopUp( wd.year + wd.month + wd.day 
+            + " Work Day deletion.... ", "Ok",  ['green-snackbar'])
+          this.loader.loadingStop();
+        }
       );
   }
 }

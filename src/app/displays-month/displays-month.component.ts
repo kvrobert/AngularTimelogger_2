@@ -47,7 +47,7 @@ export class DisplaysMonthComponent implements OnInit {
         },
         error => {
           this.loader.loadingStop();
-          this.timeloggerService.messageService.openPopUp( error.error );
+          this.timeloggerService.messageService.openPopUp( error.error, "", ['red-snackbar'] );
         },
         () => this.loader.loadingStop()
       );
@@ -59,11 +59,15 @@ export class DisplaysMonthComponent implements OnInit {
     this.timeloggerService.deleteWorkMonth( wm )
       .subscribe(
         result => console.log("Az eredmény: " + JSON.stringify( result ) ),
-        error => alert( error ),
+        error => {
+          this.loader.loadingStop();
+          this.timeloggerService.messageService.openPopUp( error.error, "", ['red-snackbar'] );
+        },
         () => {
           console.log("HÓNAP Trörlve");
           this.timeloggerService.messageService.openPopUp( wm.year + wm.month
-            + " Work Month deletion.... ", "Ok")
+            + " Work Month deletion.... ", "Ok",  ['green-snackbar'])
+          this.loader.loadingStop();
         }
       );
   }

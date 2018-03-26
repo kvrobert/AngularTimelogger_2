@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {MatSnackBar} from "@angular/material";
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material";
 
 @Injectable()
 export class MessageService {
@@ -13,10 +13,13 @@ export class MessageService {
     this.infoMessage.push( message );
   }
 
-  openPopUp(message: string, action?: string) {
-    this.popUpBar.open(message, action, {
-      duration: 2000,
-    });
+  openPopUp(message: string, action?: string, snakcbarClass?: string[] ) {
+    let config = new MatSnackBarConfig();
+    config.duration = 5000;
+    config.panelClass = snakcbarClass;
+    config.verticalPosition = "bottom";
+    config.horizontalPosition = "center";
+    this.popUpBar.open( message, action, config );
   }
 
 

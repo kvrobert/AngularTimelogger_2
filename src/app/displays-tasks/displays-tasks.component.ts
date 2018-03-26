@@ -35,6 +35,7 @@ export class DisplaysTasksComponent implements OnInit {
   private editableTaskId: string;
   private editableTaskStartTime: string;
   private isNewRowAddingVisible  = false;
+  private isRowEditing: boolean = false;
 
 
   constructor( private  timeloggerService: TimeloggerService,
@@ -72,6 +73,8 @@ export class DisplaysTasksComponent implements OnInit {
 
   editRow(task: Task): void {
     console.log("EdiRow..." + task.taskId +";"+ task.startTime);
+    this.isRowEditing = true;
+    console.log("is button visible..." + this.isRowEditing);
     this.selectedTask = task;
 
     /**  Add the old task data */
@@ -84,9 +87,11 @@ export class DisplaysTasksComponent implements OnInit {
 
   editCancel( task: Task ): void {
     this.selectedTask = null;
+    this.isRowEditing = false;
   }
 
   saveRowEdition( tsk: Task ): void {
+    this.isRowEditing = false;
     this.selectedTask = null;
 
     this.modifiedTask.newTaskId = tsk.taskId;
@@ -100,7 +105,7 @@ export class DisplaysTasksComponent implements OnInit {
     .subscribe(
       result => this.result( result ),
       error => this.error( error ),
-      () => this.finally( tsk.year+tsk.month+tsk.day+ " Task modification...", "Ok" )
+      () => this.finally( tsk.taskId + ".Id Task modification...", "Ok" )
       );
   }
 
@@ -172,14 +177,14 @@ export class DisplaysTasksComponent implements OnInit {
 
   error( responsType: any ) {
     console.log( 'The response: ' + JSON.stringify( responsType ) );
-    this.timeloggerService.messageService.openPopUp(responsType.error);
+    this.timeloggerService.messageService.openPopUp(responsType.error, "", ['red-snackbar']);
     this.loader.loadingStop();
   }
 
-  finally( message: string, action?: string ) {
+  finally( message: string, action?: string, snackbarClass?: string[] ) {
     console.log( message + " " + action );
     this.loader.loadingStop();
-    this.timeloggerService.messageService.openPopUp( message, action );
+    this.timeloggerService.messageService.openPopUp( message, action, ['green-snackbar'] );
   }
 
 }

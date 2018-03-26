@@ -2,16 +2,16 @@
   <section id="monthStatistics" class="sideBoxes">
     <h2>Month Statistics</h2>
     <div class="statisticsInfo">
-      <h4>Required Minuten</h4>
-      <span>{{ getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).requiredMinPerMonth }}</span>
+      <h4>Required minutes</h4>
+      <span matTooltip="The required minutes of the actual month">{{ getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).requiredMinPerMonth }}</span>
     </div>
     <div class="statisticsInfo">
-      <h4>Summary Minuten</h4>
-      <span>{{getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).sumPerMonth}}</span>
+      <h4>Summary minutes</h4>
+      <span matTooltip="The summary minutes of the actual month">{{getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).sumPerMonth}}</span>
     </div>
     <div class="statisticsInfo">
-      <h4>Extra Minuten</h4>
-      <span [ngStyle]=" { 'color': getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).extraMinPerMonth < 0
+      <h4>Extra minutes</h4>
+      <span matTooltip="The extra minutes in the actual month. If it is red, you don't have enough minutes." [ngStyle]=" { 'color': getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).extraMinPerMonth < 0
                             ? 'red' : 'white' } " >{{ getCurrentMOnthStatistic( currentCommonDate.getFullYear(), currentCommonDate.getMonth() + 1 ).extraMinPerMonth }}</span>
     </div>
   </section>
